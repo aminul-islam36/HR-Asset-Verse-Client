@@ -8,3 +8,7 @@
   --color-primary: blue;
   --color-secondary: teal;
 }
+
+li a.active {
+  @apply bg-secondary;
+}

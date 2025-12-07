@@ -3,23 +3,46 @@ import { useForm } from "react-hook-form";
 import useAuth from "../hooks/useAuth";
 import Swal from "sweetalert2";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
+import axios from "axios";
+import { useLocation, useNavigate } from "react-router";
 
 const HrAdminRegisterForm = () => {
   const [show, setShow] = useState(false);
   const { setUser, registerUser } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
   const { register, handleSubmit } = useForm();
   const handleRegistation = (data) => {
+    const newUser = {
+      name: data.name,
+      companyName: data.companyName,
+      companyLogo: data.companyLogo,
+      email: data.email,
+      password: data.password,
+      dateOfBirth: data.date,
+      role: "Hr",
+      packageLimit: 5,
+      currentEmployees: 0,
+      subscription: "basic",
+      createdAt: new Date().toLocaleString(),
+    };
     registerUser(data.email, data.password)
       .then((data) => {
-        setUser(data.user);
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Registation successfull",
-          showConfirmButton: false,
-          timer: 1500,
+        const firebaseUser = data.user;
+        axios.post("http://localhost:5000/users", newUser).then((res) => {
+          console.log(res.data);
+          if (res.data.insertedId) {
+            setUser(firebaseUser);
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Registation successfull",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            navigate(location.state || "/");
+          }
         });
-        console.log(data.user);
       })
       .catch((err) => console.log(err));
     console.log(data);

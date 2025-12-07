@@ -1,27 +1,45 @@
 import React, { useState } from "react";
-import useAuth from "../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
+import useAuth from "../hooks/useAuth";
+import { useLocation, useNavigate } from "react-router";
+import axios from "axios";
 
 const EmployeeForm = () => {
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
   const { registerUser, setUser } = useAuth();
 
   const { register, handleSubmit } = useForm();
   const handleRegistation = (data) => {
     console.log(data);
+    const newUser = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      dateOfBirth: data.date,
+      role: "employee",
+      createdAt: new Date().toLocaleString(),
+    };
     registerUser(data.email, data.password)
       .then((data) => {
-        setUser(data.user);
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Registation successfull",
-          showConfirmButton: false,
-          timer: 1500,
+        const firebaseUser = data.user;
+        axios.post("http://localhost:5000/users", newUser).then((res) => {
+          console.log(res.data);
+          if (res.data.insertedId) {
+            setUser(firebaseUser);
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Registation successfull",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            navigate(location.state || "/");
+          }
         });
-        console.log(data.user);
       })
       .catch((err) => console.log(err));
   };
@@ -49,23 +67,20 @@ const EmployeeForm = () => {
           />
         </div>
 
-        <div>
+        <div className="relative">
           <label className="label">Password</label>
-          <div className="relative">
-            <label className="label">Password</label>
-            <input
-              {...register("password")}
-              type={show ? "text" : "password"}
-              className="input w-full"
-              placeholder="Password"
-            />
-            <span
-              onClick={() => setShow(!show)}
-              className="absolute top-2/5 translate-y-1/2 right-6 cursor-pointer z-10"
-            >
-              {show ? <IoEyeOutline /> : <IoEyeOffOutline />}
-            </span>
-          </div>
+          <input
+            {...register("password")}
+            type={show ? "text" : "password"}
+            className="input w-full"
+            placeholder="Password"
+          />
+          <span
+            onClick={() => setShow(!show)}
+            className="absolute top-2/5 translate-y-1/2 right-6 cursor-pointer z-10"
+          >
+            {show ? <IoEyeOutline /> : <IoEyeOffOutline />}
+          </span>
         </div>
 
         <div>

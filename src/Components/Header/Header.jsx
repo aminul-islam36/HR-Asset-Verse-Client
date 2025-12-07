@@ -1,26 +1,71 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router";
 import Logo from "../Logo";
 import Button from "../Button";
+import axios from "axios";
+import useAuth from "../../hooks/useAuth";
 
 const Header = () => {
+  const [role, setRole] = useState(null);
+  const { user } = useAuth();
+  useEffect(() => {
+    if (!user?.email) return;
+    axios
+      .get(`http://localhost:5000/users/${user?.email}`)
+      .then((res) => {
+        setRole(res.data.role);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [user]);
+
   const links = (
     <>
+      {/* Public Links  */}
       <li>
-        <NavLink to="/">Dashboard</NavLink>
+        <NavLink to="/">Home</NavLink>
       </li>
-      <li>
-        <NavLink to="/add-Asset">Add Asset</NavLink>
-      </li>
-      <li>
-        <NavLink to="/upgrade-Package">Upgrade Package</NavLink>
-      </li>
-      <li>
-        <NavLink to="/all-Requests">All Requests</NavLink>
-      </li>
-      <li>
-        <NavLink to="/requestAsset">Request Asset </NavLink>
-      </li>
+
+      {/* HR ADMIN LINKS  */}
+      {role === "Hr" && (
+        <>
+          <li>
+            <NavLink to="/upgrade-Package">Upgrade Package</NavLink>
+          </li>
+          <li>
+            <NavLink to="/all-Requests">All Requests</NavLink>
+          </li>
+          <li>
+            <NavLink to="/add-Asset">My Employee List</NavLink>
+          </li>
+          <li>
+            <NavLink to="/add-Asset">Asset List</NavLink>
+          </li>
+          <li>
+            <NavLink to="/add-Asset">Add Asset</NavLink>
+          </li>
+        </>
+      )}
+
+      {/* Employee Links  */}
+
+      {role === "employee" && (
+        <>
+          <li>
+            <NavLink to="/all-Requests">My Team</NavLink>
+          </li>
+          <li>
+            <NavLink to="/requestAsset">Request an Asset </NavLink>
+          </li>
+          <li>
+            <NavLink to="/requestAsset">My Assets</NavLink>
+          </li>
+          <li>
+            <NavLink to="/requestAsset">Profile</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
   return (

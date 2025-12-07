@@ -26,7 +26,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/upgrade-Package",
-        element: <UpgradePackage />,
+        element: (
+          <PrivateRoute>
+            <UpgradePackage />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/requestAsset",
