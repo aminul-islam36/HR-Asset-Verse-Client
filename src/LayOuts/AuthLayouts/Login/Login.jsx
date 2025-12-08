@@ -12,8 +12,6 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const handleLogIn = (data) => {
-    console.log(data);
-
     loginUser(data.email, data.password)
       .then((data) => {
         setUser(data.user);

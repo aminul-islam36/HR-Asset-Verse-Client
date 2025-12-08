@@ -4,6 +4,7 @@ import Logo from "../Logo";
 import Button from "../Button";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
+import Loading from "../Loading";
 
 const Header = () => {
   const [role, setRole] = useState(null);
@@ -68,6 +69,7 @@ const Header = () => {
       )}
     </>
   );
+
   return (
     <div className="shadow-sm ">
       <div className="navbar bg-base-100 w-11/12 mx-auto">

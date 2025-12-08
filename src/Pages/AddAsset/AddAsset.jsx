@@ -14,6 +14,7 @@ const AddAsset = () => {
       productImage: data.file,
       productType: data.assetType,
       productQuantity: data.quantity,
+      availableQuantity: data.quantity,
       dateAdded: new Date().toString(),
       hrEmail: user.email,
       companyName: data.brand,

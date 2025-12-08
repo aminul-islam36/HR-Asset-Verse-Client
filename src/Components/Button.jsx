@@ -43,7 +43,7 @@ const Button = () => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-30 p-2 shadow"
           >
             <li>
-              <a>Profile</a>
+              <Link to="/hrProfile">Profile</Link>
             </li>
             <li>
               <a>Settings</a>

@@ -16,6 +16,7 @@ import MyAsset from "../../Pages/My-Assets/MyAsset";
 import MyTeam from "../../Pages/MyTeam/MyTeam";
 import EmployeeForm from "../../Components/EmployeeForm";
 import EmployeeProfile from "../../Pages/EmployeeProfile/EmployeeProfile";
+import HrProfile from "../../Pages/HrProfile/HrProfile";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +57,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AllAsset />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/hrProfile",
+        element: (
+          <PrivateRoute>
+            <HrProfile />
           </PrivateRoute>
         ),
       },
