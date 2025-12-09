@@ -12,11 +12,21 @@ const HrAdminRegisterForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { register, handleSubmit } = useForm();
-  const handleRegistation = (data) => {
+  const handleRegistation = async (data) => {
+    // Upload to ImgBB
+
+    const imageFile = data.file[0];
+    const formData = new FormData();
+    formData.append("image", imageFile);
+    const imageBB = await axios.post(
+      `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`,
+      formData
+    );
+    const registerCompanyLogo = imageBB.data.data.url;
     const newUser = {
       name: data.name,
       companyName: data.companyName,
-      companyLogo: data.companyLogo,
+      companyLogo: registerCompanyLogo,
       email: data.email,
       password: data.password,
       dateOfBirth: data.date,

@@ -6,18 +6,36 @@ import useAuth from "../../hooks/useAuth";
 
 const AddAsset = () => {
   const { user } = useAuth();
+
   const { register, handleSubmit } = useForm();
 
-  const handleAsset = (data) => {
+  const handleAsset = async (data) => {
+    const { companyName } = await axios
+      .get(`http://localhost:5000/users/${user.email}`)
+      .then((res) => {
+        console.log(res.data);
+        return res.data;
+      });
+
+    // Upload to ImgBB
+
+    const imageFile = data.file[0];
+    const formData = new FormData();
+    formData.append("image", imageFile);
+    const imageBB = await axios.post(
+      `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`,
+      formData
+    );
+
     const newAsset = {
       productName: data.assetName,
-      productImage: data.file,
+      productImage: imageBB.data.data.url,
       productType: data.assetType,
-      productQuantity: data.quantity,
-      availableQuantity: data.quantity,
-      dateAdded: new Date().toString(),
+      productQuantity: Number(data.quantity),
+      availableQuantity: Number(data.quantity),
+      dateAdded: new Date(),
       hrEmail: user.email,
-      companyName: data.brand,
+      companyName: companyName,
     };
     console.log(data);
     axios
