@@ -47,15 +47,14 @@ const AssignedAssets = () => {
                 <td>{item.companyName}</td>
                 <td>{new Date(item.assignmentDate).toLocaleDateString()}</td>
                 <td>
-                  <span
-                    className={`px-2 py-1 rounded text-white text-sm ${
-                      item.assetType === "Returnable"
-                        ? "bg-green-600"
-                        : "bg-blue-600"
-                    }`}
-                  >
-                    {item.assetType}
-                  </span>
+                  {" "}
+                  {item.assetType === "Returnable" ? (
+                    <button className="btn btn-secondary">Return Asset</button>
+                  ) : (
+                    <button className="btn btn-secondary btn-disabled">
+                      Non Return
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}

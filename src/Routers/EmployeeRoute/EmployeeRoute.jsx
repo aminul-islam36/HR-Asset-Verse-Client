@@ -7,24 +7,27 @@ const EmployeeRoute = ({ children }) => {
   const { user, loading } = useAuth();
   const axiosURL = useAxios();
 
-  if (loading) return <p>Loading...</p>;
-
-  if (!user) return <Navigate to="/auth/login" />;
-
   const { data: userInfo, isLoading } = useQuery({
-    queryKey: ["userRole", user.email],
+    queryKey: ["userRole", user?.email],
     queryFn: async () => {
-      const res = await axiosURL.get(`/users/${user.email}`);
+      const res = await axiosURL.get(`/users/${user?.email}`);
       return res.data;
     },
   });
 
-  if (isLoading) return <p>Checking permission...</p>;
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+  if (isLoading) {
+    return <p>Checking permission...</p>;
+  }
 
+  if (!user) {
+    return <Navigate to="/auth/login" />;
+  }
   if (userInfo.role !== "employee") {
     return <Navigate to="/" />;
   }
-
   return children;
 };
 
