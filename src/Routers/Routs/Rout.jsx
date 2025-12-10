@@ -17,6 +17,8 @@ import MyTeam from "../../Pages/MyTeam/MyTeam";
 import EmployeeForm from "../../Components/EmployeeForm";
 import EmployeeProfile from "../../Pages/EmployeeProfile/EmployeeProfile";
 import HrProfile from "../../Pages/HrProfile/HrProfile";
+import AssignedAssets from "../../Pages/AssignedAssets/AssignedAssets";
+import AdminRoute from "../AdminRoutes/AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -39,9 +41,9 @@ const router = createBrowserRouter([
       {
         path: "/add-Asset",
         element: (
-          <PrivateRoute>
+          <AdminRoute>
             <AddAsset />
-          </PrivateRoute>
+          </AdminRoute>
         ),
       },
       {
@@ -74,7 +76,7 @@ const router = createBrowserRouter([
         path: "/my-asset",
         element: (
           <PrivateRoute>
-            <MyAsset />
+            <AssignedAssets />
           </PrivateRoute>
         ),
       },
