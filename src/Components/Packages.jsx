@@ -17,7 +17,7 @@ const Packages = () => {
       {packages.map((pkg) => (
         <div
           key={pkg.name}
-          className="card bg-base-100 shadow-xl justify-end border border-gray-200"
+          className="card bg-base-100 hover:shadow-lg transition justify-end border cursor-pointer border-gray-200"
         >
           <div className="card-body flex-0">
             <h2 className="card-title text-3xl font-bold">{pkg.name}</h2>
