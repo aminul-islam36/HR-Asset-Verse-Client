@@ -119,7 +119,13 @@ const HrAdminRegisterForm = () => {
           </span>
         </div>
 
-        <button className="btn btn-secondary w-full mt-3">
+        <button
+          className="btn text-white bg-[#724ebf] w-full mt-3"
+          style={{
+            background:
+              "radial-gradient(100.03% 140.18% at 0% 85.53%, #ff00ff 0%, #724ebf 95.31%)",
+          }}
+        >
           Register as HR
         </button>
       </form>
