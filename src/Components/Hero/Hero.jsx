@@ -2,7 +2,7 @@ import heroImg from "../../assets/bussniess.webp";
 const Hero = () => {
   return (
     <div className="bg-gray-50 py-20">
-      <div className="w-11/12 mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
+      <div className="px-6 grid md:grid-cols-2 gap-10 items-center">
         {/* Left section */}
         <div className="space-y-6">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">

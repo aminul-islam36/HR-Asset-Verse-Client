@@ -13,7 +13,7 @@ const Packages = () => {
     },
   });
   return (
-    <div className="grid md:grid-cols-3 gap-6 p-6 w-11/12 mx-auto">
+    <div className="grid md:grid-cols-3 gap-6 p-6">
       {packages.map((pkg) => (
         <div
           key={pkg.name}

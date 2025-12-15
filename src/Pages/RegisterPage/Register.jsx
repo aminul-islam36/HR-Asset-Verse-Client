@@ -40,7 +40,7 @@ const Register = () => {
 
             <p className="mt-4 text-center">
               Already have an account?
-              <Link to="login" className="text-blue-700">
+              <Link to="/auth/login" className="text-blue-700">
                 Click here to sign in.
               </Link>
             </p>

@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from "react-router";
 
 const HrAdminRegisterForm = () => {
   const [show, setShow] = useState(false);
-  const { setUser, registerUser } = useAuth();
+  const { setUser, registerUser, updateUserProfile } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const { register, handleSubmit } = useForm();
@@ -42,15 +42,20 @@ const HrAdminRegisterForm = () => {
         axios.post("http://localhost:5000/users", newUser).then((res) => {
           console.log(res.data);
           if (res.data.insertedId) {
-            setUser(firebaseUser);
-            Swal.fire({
-              position: "center",
-              icon: "success",
-              title: "Registation successfull",
-              showConfirmButton: false,
-              timer: 1500,
+            updateUserProfile({
+              displayName: data.name,
+            }).then(() => {
+              setUser({ ...firebaseUser, displayName: data.name });
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Registation successfull",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+
+              navigate(location.state || "/");
             });
-            navigate(location.state || "/");
           }
         });
       })

@@ -1,9 +1,8 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 import Root from "../../LayOuts/RootLayout/Root";
 import Home from "../../Pages/HomePage/Home";
 import Login from "../../LayOuts/AuthLayouts/Login/Login";
 import AuthLayout from "../../LayOuts/AuthLayouts/AuthLayout";
-import Register from "../../Pages/RegisterPage/Register";
 import AllRequests from "../../Pages/AllRequests/AllRequests";
 import UpgradePackage from "../../Pages/Upgrade-Package/UpgradePackage";
 import RequestAsset from "../../Pages/RequestAsset/RequestAsset";
@@ -21,6 +20,7 @@ import AssignedAssets from "../../Pages/AssignedAssets/AssignedAssets";
 import AdminRoute from "../AdminRoutes/AdminRoute";
 import EmployeeRoute from "../EmployeeRoute/EmployeeRoute";
 import HrAdminRegisterForm from "../../Components/HrAdminRegisterForm";
+import Register from "../../Pages/RegisterPage/Register";
 
 const router = createBrowserRouter([
   {
@@ -50,11 +50,18 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/my-employee-List",
+        path: "/employee-list",
         element: (
           <AdminRoute>
-            {" "}
             <MyEmployeeList />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/hrProfile",
+        element: (
+          <AdminRoute>
+            <HrProfile />
           </AdminRoute>
         ),
       },
@@ -77,7 +84,7 @@ const router = createBrowserRouter([
 
       //--------------- Employee Link ------------------------
       {
-        path: "/my-asset",
+        path: "/my-assets",
         element: (
           <EmployeeRoute>
             <AssignedAssets />
@@ -101,10 +108,9 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/employee-Profile",
+        path: "/employeeProfile",
         element: (
           <EmployeeRoute>
-            {" "}
             <EmployeeProfile />
           </EmployeeRoute>
         ),
@@ -117,12 +123,17 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Register />,
+        path: "/auth",
+        element: <Navigate to="/register"></Navigate>,
       },
 
       {
         path: "login",
         element: <Login />,
+      },
+      {
+        path: "register",
+        element: <Register />,
       },
     ],
   },

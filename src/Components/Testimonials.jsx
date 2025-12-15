@@ -3,7 +3,7 @@ import { Star, Building2, Users, ShieldCheck } from "lucide-react";
 const TestimonialsSection = () => {
   return (
     <div className="py-20 bg-white">
-      <div className="container mx-auto px-6">
+      <div className="px-6">
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900">

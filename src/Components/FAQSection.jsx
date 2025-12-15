@@ -29,7 +29,7 @@ const FAQSection = () => {
     },
   ];
   return (
-    <div className="w-11/12 mx-auto px-6 max-w-4xl ">
+    <div className="mx-auto px-6 max-w-5xl ">
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
           Frequently Asked Questions
