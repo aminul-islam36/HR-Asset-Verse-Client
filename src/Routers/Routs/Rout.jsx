@@ -21,6 +21,7 @@ import AdminRoute from "../AdminRoutes/AdminRoute";
 import EmployeeRoute from "../EmployeeRoute/EmployeeRoute";
 import HrAdminRegisterForm from "../../Components/HrAdminRegisterForm";
 import Register from "../../Pages/RegisterPage/Register";
+import About from "../../Components/AboutSection/About";
 
 const router = createBrowserRouter([
   {
@@ -28,24 +29,37 @@ const router = createBrowserRouter([
     element: <Root />,
     children: [
       { index: true, element: <Home /> },
+
       {
-        path: "/all-Requests",
-        element: <AllRequests />,
+        path: "/about",
+        element: <About />,
       },
       {
-        path: "/upgrade-Package",
-        element: (
-          <AdminRoute>
-            {" "}
-            <UpgradePackage />
-          </AdminRoute>
-        ),
+        path: "/contact",
+        element: <About />,
       },
+
       {
         path: "/add-Asset",
         element: (
           <AdminRoute>
             <AddAsset />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/asset-list",
+        element: (
+          <AdminRoute>
+            <AllAsset />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/all-Requests",
+        element: (
+          <AdminRoute>
+            <AllRequests />
           </AdminRoute>
         ),
       },
@@ -58,19 +72,11 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/hrProfile",
+        path: "/upgrade-Package",
         element: (
           <AdminRoute>
-            <HrProfile />
+            <UpgradePackage />
           </AdminRoute>
-        ),
-      },
-      {
-        path: "/asset-List",
-        element: (
-          <PrivateRoute>
-            <AllAsset />
-          </PrivateRoute>
         ),
       },
       {

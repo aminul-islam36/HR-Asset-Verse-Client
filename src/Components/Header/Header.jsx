@@ -28,10 +28,10 @@ const Header = () => {
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to="/join-employese">Contact Us</NavLink>
+        <NavLink to="/contact">Contact Us</NavLink>
       </li>
       <li>
-        <NavLink to="/join-emplssoyee">About Us</NavLink>
+        <NavLink to="/about">About Us</NavLink>
       </li>
       {!user && (
         <>
@@ -68,16 +68,19 @@ const Header = () => {
   const hrMenu = (
     <>
       <li>
-        <NavLink to="/asset-list">Asset List</NavLink>
+        <NavLink to="/add-asset">Add Asset</NavLink>
       </li>
       <li>
-        <NavLink to="/add-asset">Add Asset</NavLink>
+        <NavLink to="/asset-list">Asset List</NavLink>
       </li>
       <li>
         <NavLink to="/all-requests">All Requests</NavLink>
       </li>
       <li>
         <NavLink to="/employee-list">Employee List</NavLink>
+      </li>
+      <li>
+        <NavLink to="/upgrade-Package">Upgrade Package</NavLink>
       </li>
       <li>
         <NavLink to="/hrProfile">Profile</NavLink>

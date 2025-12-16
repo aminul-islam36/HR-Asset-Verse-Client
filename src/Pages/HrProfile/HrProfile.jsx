@@ -3,13 +3,13 @@ import useAuth from "../../hooks/useAuth";
 import useAxios from "../../hooks/useAxios";
 
 const HrProfile = () => {
-  const { user, loading } = useAuth();
+  const { user, isLoading } = useAuth();
   console.log(user);
 
   const axiosURL = useAxios();
   console.log(user);
 
-  const { data: hrData = {}, isLoading } = useQuery({
+  const { data: hrData = {}, isLoading: loading } = useQuery({
     queryKey: ["hrData", user?.email],
     queryFn: async () => {
       const res = await axiosURL.get(`/users/${user?.email}`);

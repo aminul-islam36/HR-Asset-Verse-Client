@@ -5,10 +5,12 @@ import Swal from "sweetalert2";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router";
+import useAxios from "../hooks/useAxios";
 
 const HrAdminRegisterForm = () => {
   const [show, setShow] = useState(false);
   const { setUser, registerUser, updateUserProfile } = useAuth();
+  const axiosURL = useAxios();
   const navigate = useNavigate();
   const location = useLocation();
   const { register, handleSubmit } = useForm();
@@ -36,12 +38,13 @@ const HrAdminRegisterForm = () => {
       packageLimit: 5,
       currentEmployees: 0,
       subscription: "basic",
-      createdAt: new Date().toLocaleString(),
+      createdAt: new Date().toLocaleDateString(),
     };
+
     registerUser(data.email, data.password)
       .then((data) => {
         const firebaseUser = data.user;
-        axios.post("http://localhost:5000/users", newUser).then((res) => {
+        axiosURL.post("/users", newUser).then((res) => {
           console.log(res.data);
           if (res.data.insertedId) {
             updateUserProfile({

@@ -8,6 +8,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../firebase/fitebase.config";
+import PageLoader from "../Components/PageLoader";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -54,6 +55,7 @@ const AuthProvider = ({ children }) => {
     isLoading,
     setisLoading,
   };
+
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );

@@ -11,14 +11,14 @@ const EmployeeForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const axiosURL = useAxios();
-  const { registerUser, setUser, updateUserProfile } = useAuth();
-
+  const { setUser, registerUser, updateUserProfile } = useAuth();
   const { register, handleSubmit } = useForm();
+
   const handleRegistation = (data) => {
     const name = data.name;
     console.log(data);
     const newUser = {
-      name: data.name,
+      name,
       email: data.email,
       password: data.password,
       dateOfBirth: data.date,

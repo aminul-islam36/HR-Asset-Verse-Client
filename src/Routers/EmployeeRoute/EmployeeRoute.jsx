@@ -1,13 +1,14 @@
 import useAuth from "../../hooks/useAuth";
 import { Navigate } from "react-router";
 import useRole from "../../hooks/useRole";
+import PageLoader from "../../Components/PageLoader";
 
 const EmployeeRoute = ({ children }) => {
-  const { user, loading } = useAuth();
+  const { user, isLoading } = useAuth();
   const { role, roleLoading } = useRole();
 
-  if (loading || roleLoading) {
-    return <p>Loading...</p>;
+  if (isLoading || roleLoading) {
+    return <PageLoader />;
   }
 
   if (!user) {
@@ -17,6 +18,7 @@ const EmployeeRoute = ({ children }) => {
   if (role !== "employee") {
     return <Navigate to="/" />;
   }
+
   return children;
 };
 

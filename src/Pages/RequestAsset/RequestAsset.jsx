@@ -4,18 +4,19 @@ import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import PageLoader from "../../Components/PageLoader";
+import useAxios from "../../hooks/useAxios";
 
 const RequestAsset = () => {
-  const { user } = useAuth();
-  console.log(user);
-
+  const { user, isLoading: loading } = useAuth();
+  const axiosURL = useAxios();
   const { register, handleSubmit } = useForm();
 
   // Load all assets
   const { data: assets = [], isLoading } = useQuery({
     queryKey: ["assets"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:5000/assets");
+      const res = await axiosURL.get("/assets");
       return res.data;
     },
   });
@@ -50,8 +51,8 @@ const RequestAsset = () => {
     };
 
     // Submit request-----------
-    axios
-      .post("http://localhost:5000/requestAsset", requestAssetData)
+    axiosURL
+      .post("/requestAsset", requestAssetData)
       .then((res) => {
         if (res.data.insertedId) {
           Swal.fire({

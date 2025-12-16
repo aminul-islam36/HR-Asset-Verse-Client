@@ -40,8 +40,8 @@ const AddAsset = () => {
       companyName: companyName,
     };
     console.log(data);
-    axios
-      .post("http://localhost:5000/assets", newAsset)
+    axiosURL
+      .post("/assets", newAsset)
       .then((res) => {
         if (res.data.insertedId) {
           Swal.fire({

@@ -1,13 +1,17 @@
 import React from "react";
 import useAxios from "../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
+import useAuth from "../../hooks/useAuth";
 
 const AssignedAssets = () => {
   const axiosURL = useAxios();
+  const { user } = useAuth();
   const { data: AssignedAssets = [] } = useQuery({
-    queryKey: ["AssignedAssets"],
+    queryKey: ["AssignedAssets", user.email],
     queryFn: async () => {
-      const res = await axiosURL.get("/AssignedAssets");
+      const res = await axiosURL.get(
+        `/assignedAssets?employeeEmail=${user.email}`
+      );
       return res.data;
     },
   });

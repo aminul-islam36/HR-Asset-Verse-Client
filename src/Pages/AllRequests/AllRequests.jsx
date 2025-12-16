@@ -54,6 +54,14 @@ const AllRequests = () => {
     };
 
     const res = await axiosURL.post(`/approveRequest/${req._id}`, assignedData);
+    if (res.data.needUpgrade) {
+      Swal.fire({
+        icon: "error",
+        title: "Package Limit Finished!",
+        text: "Please upgrade your subscription plan to approve more employees.",
+      });
+      return;
+    }
     if (res.data.success) {
       Swal.fire("Approved!", "Request approved successfully", "success");
       refetch();
