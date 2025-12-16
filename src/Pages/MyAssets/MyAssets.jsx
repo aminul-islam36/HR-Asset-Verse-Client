@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
-import { IoSearchOutline } from "react-icons/io5";
+import { motion } from "framer-motion";
 
 const MyAssets = () => {
   const axiosURL = useAxios();
@@ -50,7 +50,16 @@ const MyAssets = () => {
 
           <tbody>
             {data?.result?.map((item, index) => (
-              <tr key={item._id} className="hover:bg-gray-50">
+              <motion.tr
+                key={item._id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.6,
+                  delay: index * 0.08,
+                }}
+                className="hover:bg-gray-50"
+              >
                 <td>{index + 1}</td>
 
                 <td className="flex items-center gap-3">
@@ -75,7 +84,7 @@ const MyAssets = () => {
                     </button>
                   )}
                 </td>
-              </tr>
+              </motion.tr>
             ))}
           </tbody>
         </table>
