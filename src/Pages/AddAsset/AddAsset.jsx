@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import useAxios from "../../hooks/useAxios";
+import Title from "../../Utilities/Title";
 
 const AddAsset = () => {
   const axiosURL = useAxios();
@@ -62,9 +63,8 @@ const AddAsset = () => {
       });
   };
   return (
-    <div className="max-w-xl mx-auto p-6 my-15 bg-white shadow rounded-lg mt-10">
+    <div className="w-11/12 max-w-xl mx-auto p-6 bg-white shadow rounded-lg my-15 border">
       <h2 className="text-2xl font-semibold mb-4 text-center">Add New Asset</h2>
-
       <form onSubmit={handleSubmit(handleAsset)} className="space-y-4">
         {/* Asset Name */}
         <div>

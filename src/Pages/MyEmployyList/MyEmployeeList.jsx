@@ -49,7 +49,7 @@ const MyEmployeeList = () => {
     );
 
   return (
-    <div className="w-11/12 mx-auto p-6">
+    <div className="w-11/12 max-w-7xl mx-auto py-10">
       <h2 className="text-3xl font-bold mb-6">
         My All Employees <span className="text-xl">({Myemployees.length})</span>
       </h2>

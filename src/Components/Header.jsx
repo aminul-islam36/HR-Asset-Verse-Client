@@ -28,10 +28,10 @@ const Header = () => {
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to="/contact">Contact Us</NavLink>
+        <NavLink to="/testimonial">Testimonial</NavLink>
       </li>
       <li>
-        <NavLink to="/about">About Us</NavLink>
+        <NavLink to="/upgrade-Package"> Packages</NavLink>
       </li>
       {!user && (
         <>

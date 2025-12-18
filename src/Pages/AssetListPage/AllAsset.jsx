@@ -7,6 +7,7 @@ import { MdAutoDelete } from "react-icons/md";
 import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import Title from "../../Utilities/Title";
 
 const AllAsset = () => {
   const axiosURL = useAxios();
@@ -16,7 +17,6 @@ const AllAsset = () => {
   const { register, handleSubmit } = useForm();
   const {
     data: assets = [],
-    isLoading,
     refetch,
     isError,
   } = useQuery({
@@ -83,11 +83,10 @@ const AllAsset = () => {
     return <p className="text-center text-red-500">Failed to load assets</p>;
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">All Assets</h2>
-
+    <div className="w-11/12 max-w-7xl mx-auto py-10">
+      <Title title={`Total Available Assets ${assets.length}`} />
       <div className="overflow-x-auto shadow rounded-lg">
-        <table className="table w-full">
+        <table className="table w-full pt-5">
           <thead className="bg-gray-100">
             <tr>
               <th>#</th>
@@ -95,7 +94,7 @@ const AllAsset = () => {
               <th>Type</th>
               <th>Total Assets</th>
               <th>Added Date</th>
-              <th className="text-center"> Actions</th>
+              <th className="text-end pr-9"> Actions</th>
             </tr>
           </thead>
 
@@ -104,7 +103,7 @@ const AllAsset = () => {
               <tr key={item._id} className="hover:bg-gray-50">
                 <td>{index + 1}</td>
 
-                <td className="flex items-center gap-3">
+                <td className="flex items-center w-[max-content] gap-3">
                   <img
                     src={item.productImage}
                     alt={item.productName}
@@ -127,17 +126,14 @@ const AllAsset = () => {
 
                 <td>{item.productQuantity}</td>
                 <td>{new Date(item.dateAdded).toLocaleDateString()}</td>
-                <td className="text-center">
+                <td className="text-center flex  gap-3 justify-end">
                   <button
                     onClick={() => handleDeleteAsset(item._id)}
                     className="btn"
                   >
                     <MdAutoDelete />
                   </button>
-                  <button
-                    className="btn ml-2"
-                    onClick={() => handleOpenModal(item)}
-                  >
+                  <button className="btn" onClick={() => handleOpenModal(item)}>
                     <FaRegEdit />
                   </button>
                 </td>

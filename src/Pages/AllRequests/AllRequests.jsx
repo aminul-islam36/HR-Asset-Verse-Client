@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import useAxios from "../../hooks/useAxios";
+import Title from "../../Utilities/Title";
 
 const AllRequests = () => {
   const axiosURL = useAxios();
@@ -68,10 +69,10 @@ const AllRequests = () => {
     }
   };
   return (
-    <div className="p-6">
-      <h2 className="text-3xl font-bold mb-5">Manage Asset Requests</h2>
+    <div className="mx-auto max-w-7xl w-11/12 py-10">
+      <Title title={`Total Assets Request ${requests.length}`} />
 
-      <div className="overflow-x-auto ">
+      <div className="overflow-x-auto pt-5">
         <table className="table w-full border overflow-hidden x-auto">
           <thead>
             <tr className="bg-gray-200">

@@ -26,32 +26,29 @@ const About = () => {
   ];
 
   return (
-    <div className="py-20 bg-white">
-      <div className="px-6">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-            Why Choose <span className="text-primary">AssetVerse?</span>
-          </h2>
-          <p className="text-gray-600 mt-3">
-            Efficient, secure and modern tools to help you manage your company
-            assets.
-          </p>
-        </div>
+    <div className="p-5 bg-white rounded-2xl">
+      <div className="text-center mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+          Why Choose <span className="text-primary">AssetVerse?</span>
+        </h2>
+        <p className="text-gray-600 mt-3">
+          Efficient, secure and modern tools to help you manage your company
+          assets.
+        </p>
+      </div>
 
-        {/* Benefit Cards */}
-        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-8">
-          {benefits.map((item, index) => (
-            <div
-              key={index}
-              className="bg-secondary text-white p-6 rounded-xl shadow hover:shadow-md transition text-center space-y-4"
-            >
-              <div className="flex justify-center text-white">{item.icon}</div>
-              <h3 className="text-xl font-semibold">{item.title}</h3>
-              <p className="text-sm">{item.desc}</p>
-            </div>
-          ))}
-        </div>
+      {/* Cards */}
+      <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
+        {benefits.map((item, index) => (
+          <div
+            key={index}
+            className="bg-secondary text-white p-6 rounded-xl shadow hover:shadow-md transition text-center space-y-4"
+          >
+            <div className="flex justify-center text-white">{item.icon}</div>
+            <h3 className="text-xl font-semibold">{item.title}</h3>
+            <p className="text-sm">{item.desc}</p>
+          </div>
+        ))}
       </div>
     </div>
   );

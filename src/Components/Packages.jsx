@@ -27,7 +27,7 @@ const Packages = () => {
     window.location.href = res.data.url;
   };
   return (
-    <div className="grid md:grid-cols-3 gap-6 p-6">
+    <div className="grid md:grid-cols-3 gap-6 py-8">
       {packages.map((pkg, index) => (
         <div
           key={index}

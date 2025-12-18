@@ -75,14 +75,14 @@ const RequestAsset = () => {
   };
 
   return (
-    <div className="hero min-h-screen bg-base-200">
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-3">
+    <div className="bg-base-200">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-5 w-11/12 max-w-7xl mx-auto py-15">
         {assets.map(
           (asset) =>
             asset.availableQuantity > 0 && (
               <div
                 key={asset._id}
-                className="card bg-base-100 max-w-96 shadow-sm hover:shadow-lg"
+                className="card bg-base-100 shadow-sm hover:shadow-lg"
               >
                 <figure>
                   <img

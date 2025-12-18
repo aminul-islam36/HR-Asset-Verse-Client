@@ -1,4 +1,5 @@
 import React from "react";
+import Title from "../Utilities/Title";
 
 const FAQSection = () => {
   const FAQS = [
@@ -29,11 +30,12 @@ const FAQSection = () => {
     },
   ];
   return (
-    <div className="mx-auto px-6 max-w-5xl ">
+    <div className="mx-auto py-5 max-w-5xl ">
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+        {/* <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
           Frequently Asked Questions
-        </h2>
+        </h2> */}
+        <Title title="Frequently Asked Questions" />
         <p className="text-gray-600 mt-2">
           Find answers to the most common questions about AssetVerse.
         </p>

@@ -8,9 +8,11 @@ import useAuth from "../../hooks/useAuth";
 import useAxios from "../../hooks/useAxios";
 import { motion } from "framer-motion";
 import Hero from "../../Components/Hero";
+import useRole from "../../hooks/useRole";
 
 const Home = () => {
   const { user } = useAuth();
+  const { role } = useRole();
   const axiosURL = useAxios();
   const { data: userInfo, isLoading } = useQuery({
     queryKey: ["userRole", user?.email],
@@ -27,52 +29,56 @@ const Home = () => {
 
   // if (isLoading) return <p>Loading...</p>;
   return (
-    <div className=" py-10 px-5">
-      <motion.div
-        variants={item}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.6 }}
-        roduct
-      >
-        <Hero />
-      </motion.div>
-      <motion.div
-        variants={item}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.6 }}
-        roduct
-      >
-        <About />
-      </motion.div>
-      <motion.div
-        variants={item}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.6 }}
-        roduct
-      >
-        {userInfo.role === "Hr" && <Packages />}
-      </motion.div>
-      <motion.div
-        variants={item}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.7 }}
-        roduct
-      >
-        <TestimonialsSection />
-      </motion.div>
-      <motion.div
-        variants={item}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.7 }}
-        roduct
-      >
-        <FAQSection />
-      </motion.div>
+    <div className="bg-base-200">
+      <div className=" py-10 mx-auto w-11/12  max-w-7xl">
+        <motion.div
+          variants={item}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+          roduct
+        >
+          <Hero />
+        </motion.div>
+        <motion.div
+          variants={item}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+          roduct
+        >
+          <About />
+        </motion.div>
+        <motion.div
+          variants={item}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+          roduct
+        >
+          {role === "Hr" && <Packages />}
+        </motion.div>
+
+        <motion.div
+          variants={item}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+          roduct
+        >
+          <TestimonialsSection />
+        </motion.div>
+
+        <motion.div
+          variants={item}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+          roduct
+        >
+          <FAQSection />
+        </motion.div>
+      </div>
     </div>
   );
 };

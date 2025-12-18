@@ -8,11 +8,12 @@ import {
 } from "react-icons/fa";
 import { MdAddIcCall } from "react-icons/md";
 import Logo from "./Logo";
+import { Link } from "react-router";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-gray-300 py-10 mt-16">
-      <div className="w-11/12 mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
+    <footer className="bg-gray-900 text-gray-300 py-10">
+      <div className="w-11/12 max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
         <div>
           <h2 className="text-2xl font-bold text-white mb-4">
             <Logo />
@@ -42,19 +43,13 @@ const Footer = () => {
           <h3 className="text-lg font-semibold text-white mb-4">Quick Links</h3>
           <ul className="space-y-2 text-sm">
             <li>
-              <a className="hover:text-white" href="/">
-                Home
-              </a>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <a className="hover:text-white" href="/about">
-                About
-              </a>
+              <Link to="testimonial">Testimonial</Link>
             </li>
             <li>
-              <a className="hover:text-white" href="/packages">
-                Packages
-              </a>
+              <Link to="upgrade-Package">Packages</Link>
             </li>
           </ul>
         </div>

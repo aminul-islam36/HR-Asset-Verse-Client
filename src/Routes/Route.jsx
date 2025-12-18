@@ -1,7 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router";
 import Home from "../Pages/HomePage/Home";
 import AllRequests from "../Pages/AllRequests/AllRequests";
-import UpgradePackage from "../Pages/Upgrade-Package/UpgradePackage";
 import RequestAsset from "../Pages/RequestAsset/RequestAsset";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import AddAsset from "../Pages/AddAsset/AddAsset";
@@ -12,13 +11,14 @@ import EmployeeProfile from "../Pages/EmployeeProfile/EmployeeProfile";
 import HrProfile from "../Pages/HrProfile/HrProfile";
 import EmployeeRoute from "./EmployeeRoute";
 import Register from "../Pages/RegisterPage/Register";
-import About from "../Components/About";
 import MyAssets from "../Pages/MyAssets/MyAssets";
 import PaymentSuccess from "../Pages/paymentSuccess/payment-success";
 import Login from "../Pages/Login/Login";
 import RootLayout from "../Layouts/RootLayout";
 import AuthLayout from "../Layouts/AuthLayout";
 import AdminRoute from "./AdminRoute";
+import UpgradePackage from "../Pages/UpgradePackage/UpgradePackage";
+import Testimonial from "../Pages/Testimonial/Testimonial";
 
 const router = createBrowserRouter([
   {
@@ -28,14 +28,9 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
 
       {
-        path: "/about",
-        element: <About />,
+        path: "/testimonial",
+        element: <Testimonial />,
       },
-      {
-        path: "/contact",
-        element: <About />,
-      },
-
       {
         path: "/add-Asset",
         element: (
