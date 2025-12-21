@@ -1,11 +1,11 @@
 import { useSearchParams, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
-import useAxios from "../../hooks/useAxios";
+import useaxiosPublic from "../../hooks/useAxiosPublic";
 
 const PaymentSuccess = () => {
   const [params] = useSearchParams();
   const navigate = useNavigate();
-  const axiosURL = useAxios();
+  const axiosPublic = useaxiosPublic();
 
   const email = params.get("email");
   const subscription = params.get("subscription");
@@ -14,7 +14,7 @@ const PaymentSuccess = () => {
 
   const updateSubscription = async () => {
     try {
-      await axiosURL.patch(`/update-subscription/${email}`, {
+      await axiosPublic.patch(`/update-subscription/${email}`, {
         subscription,
       });
       setLoading(false);

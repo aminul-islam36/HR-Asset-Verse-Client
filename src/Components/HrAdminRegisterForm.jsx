@@ -5,19 +5,19 @@ import Swal from "sweetalert2";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router";
-import useAxiosSecure from "../hooks/useAxiosSecure";
+import useaxiosPublic from "../hooks/useAxiosPublic";
 
 const HrAdminRegisterForm = () => {
   const [show, setShow] = useState(false);
   const { registerUser, updateUserProfile } = useAuth();
-  const axiosSecure = useAxiosSecure();
+  const axiosPublic = useaxiosPublic();
   const navigate = useNavigate();
   const location = useLocation();
   const { register, handleSubmit } = useForm();
 
   const handleRegistation = async (data) => {
     // Upload to ImgBB
-    const userName = data.name;
+    const name = data.name;
 
     const imageFile = data.file[0];
     const formData = new FormData();
@@ -28,7 +28,7 @@ const HrAdminRegisterForm = () => {
     );
     const registerCompanyLogo = imageBB.data.data.url;
     const newUser = {
-      name: data.name,
+      name,
       companyName: data.companyName,
       companyLogo: registerCompanyLogo,
       email: data.email,
@@ -43,12 +43,11 @@ const HrAdminRegisterForm = () => {
 
     registerUser(data.email, data.password)
       .then(() => {
-        axiosSecure.post("/users", newUser).then((res) => {
+        axiosPublic.post("/users", newUser).then((res) => {
           console.log(res.data);
           if (res.data.insertedId) {
-            navigate(location.state || "/");
             updateUserProfile({
-              displayName: userName,
+              displayName: name,
             }).then(() => {
               Swal.fire({
                 position: "center",
@@ -58,6 +57,7 @@ const HrAdminRegisterForm = () => {
                 timer: 1500,
               });
             });
+            navigate(location.state || "/");
           }
         });
       })

@@ -8,6 +8,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../firebase/fitebase.config";
+import axios from "axios";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -36,21 +37,16 @@ const AuthProvider = ({ children }) => {
   // User state Observer
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
       if (currentUser) {
-        const loggedUser = { email: currentUser.email };
-        fetch("https://hr-asset-verse-server.vercel.app/jwtToken", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(loggedUser),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            localStorage.setItem("token", data.token);
-          });
+        const email = { email: currentUser?.email };
+        const res = await axios.post(
+          "https://hr-asset-verse-server.vercel.app/jwtToken",
+          email
+        );
+
+        localStorage.setItem("token", res.data.token);
       }
       setIsLoading(false);
     });

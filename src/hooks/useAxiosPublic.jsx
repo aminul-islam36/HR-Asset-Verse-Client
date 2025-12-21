@@ -5,12 +5,8 @@ const axiosInstance = axios.create({
   baseURL: "https://hr-asset-verse-server.vercel.app",
 });
 
-const useAxios = () => {
+const useaxiosPublic = () => {
   return axiosInstance;
 };
 
-export default useAxios;
-
-// https://hr-asset-verse-server.vercel.app
-
-// http://localhost:5000
+export default useaxiosPublic;

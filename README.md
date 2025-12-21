@@ -1,16 +1,69 @@
-# React + Vite
+HR Asset Verse – Frontend
+A modern HR Asset Management System Frontend built with React, Firebase Authentication, and JWT‑based secure API communication.
+This application allows HR/Admins and Employees to manage company assets, requests, assignments, and subscriptions efficiently.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🌐 Live Application
+Live URL:
+👉 https://hr-asset-verse.web.app
 
-Currently, two official plugins are available:
+📦 Repository
+GitHub Repository:
+👉 https://github.com/AMINBD2022/HR-Asset-Verse-Client.git
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🚀 Features
+🔐 Firebase Authentication (Login / Register)
 
-## React Compiler
+🪪 JWT Token based API security
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+📋 Asset Management (Add, Update, Delete)
 
-## Expanding the ESLint configuration
+📨 Asset Request & Approval System
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+👥 Employee Affiliation Management
+
+📦 Subscription & Package Handling
+
+💳 Stripe Payment Integration
+
+🔍 Filtering, Pagination
+
+⚡ Axios Secure Instance for API calls
+
+🛠️ Tech Stack
+React
+React Router
+Firebase Authentication
+Axios
+JWT
+Tailwind CSS
+Stripe (Frontend Integration)
+
+🔑 Authentication Flow
+User logs in using Firebase Authentication
+
+Firebase provides authenticated user
+
+Frontend requests JWT from backend using user email
+
+JWT is stored in localStorage
+
+Axios Secure sends JWT in Authorization header
+
+Protected APIs validate JWT on backend
+
+📁 Project Structure
+src/
+├── components/
+├── pages/
+├── hooks/
+├── providers
+├── routes/
+└── firebase/
+⚙️ Environment Variables
+
+▶️ Run Locally
+npm install
+npm run dev
+👨‍💻 Author
+MD Aminul Islam
+Frontend Developer

@@ -4,21 +4,21 @@ import Swal from "sweetalert2";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import useAuth from "../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router";
-import useAxiosSecure from "../hooks/useAxiosSecure";
+import useaxiosPublic from "../hooks/useAxiosPublic";
 
 const EmployeeForm = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const axiosSecure = useAxiosSecure();
+  const axiosPublic = useaxiosPublic();
   const { registerUser, updateUserProfile } = useAuth();
   const { register, handleSubmit } = useForm();
 
   const handleRegistation = (data) => {
-    const userName = data.name;
+    const name = data.name;
     console.log(data);
     const newUser = {
-      name: userName,
+      name,
       email: data.email,
       password: data.password,
       dateOfBirth: data.date,
@@ -26,12 +26,11 @@ const EmployeeForm = () => {
       createdAt: new Date().toLocaleString(),
     };
     registerUser(data.email, data.password).then(() => {
-      axiosSecure.post("/users", newUser).then((res) => {
+      axiosPublic.post("/users", newUser).then((res) => {
         console.log(res.data);
         if (res.data.insertedId) {
-          navigate(location.state || "/");
           updateUserProfile({
-            displayName: userName,
+            displayName: name,
           })
             .then(() => {
               Swal.fire({
@@ -44,6 +43,7 @@ const EmployeeForm = () => {
             })
             .catch((err) => console.log(err));
         }
+        navigate(location.state || "/");
       });
     });
   };
