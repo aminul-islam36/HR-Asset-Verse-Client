@@ -17,9 +17,9 @@ const RootLayout = () => {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
 
-  if (isLoading || roleLoading) {
-    return <PageLoader />;
-  }
+  // if (isLoading || roleLoading) {
+  //   return <PageLoader />;
+  // }
 
   const ThemeToggle = () => {
     const newTheme = theme === "light" ? "dark" : "light";

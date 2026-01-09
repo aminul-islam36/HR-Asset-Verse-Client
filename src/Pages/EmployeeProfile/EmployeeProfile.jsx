@@ -26,7 +26,7 @@ const EmployeeProfile = () => {
     enabled: !!user?.email,
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/myEmployeeList?employeeEmail=${user.email}`
+        `/employees?employeeEmail=${user.email}`
       );
       return res.data;
     },

@@ -15,9 +15,11 @@ const AllRequests = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["allRequests"],
+    queryKey: ["asset-requests"],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/allRequests?hrEmail=${user.email}`);
+      const res = await axiosSecure.get(
+        `/asset-requests?hrEmail=${user.email}`
+      );
       return res.data;
     },
   });
@@ -35,7 +37,7 @@ const AllRequests = () => {
       cancelButtonText: "Cancel",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const res = await axiosSecure.delete(`/allRequests/${req._id}`);
+        const res = await axiosSecure.delete(`/asset-requests/${req._id}`);
 
         if (res.data.deletedCount > 0) {
           Swal.fire("Deleted!", "Request removed successfully", "success");
@@ -59,7 +61,7 @@ const AllRequests = () => {
     };
 
     const res = await axiosSecure.post(
-      `/approveRequest/${req._id}`,
+      `/approve-request/${req._id}`,
       assignedData
     );
     if (res.data.needUpgrade) {

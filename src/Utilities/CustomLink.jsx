@@ -6,8 +6,8 @@ const CustomLink = ({ link }) => {
     <NavLink
       to={link.href}
       className={({ isActive }) =>
-        `py-2.5 px-4.5 rounded ml-2 transition
-     ${isActive ? "bg-primary text-white" : "text-neutral"}`
+        `py-2.5 px-4 text-base rounded hover:text-accent/70 font-semibold
+     ${isActive ? "text-primary" : "text-neutral"}`
       }
     >
       {link.name}

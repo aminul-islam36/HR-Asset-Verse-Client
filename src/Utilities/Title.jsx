@@ -1,6 +1,6 @@
 const Title = ({ normal, color }) => {
   return (
-    <h2 className="text-2xl lg:text-4xl font-bold">
+    <h2 className="text-2xl lg:text-4xl font-bold text-base-content mb-2">
       {normal}
       <span className="text-primary ml-2">{color}</span>
     </h2>

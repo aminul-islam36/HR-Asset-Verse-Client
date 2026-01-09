@@ -46,7 +46,7 @@ const RequestAsset = () => {
 
     // Submit request-----------
     axiosSecure
-      .post("/allRequests", requestAssetData)
+      .post("/asset-requests", requestAssetData)
       .then((res) => {
         if (res.data.insertedId) {
           modalRef.current.close();

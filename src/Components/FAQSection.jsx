@@ -1,6 +1,7 @@
 import React from "react";
 import Title from "../Utilities/Title";
 import Container from "./Container";
+import SubTitle from "../Utilities/SubTitle";
 
 const FAQSection = () => {
   const FAQS = [
@@ -33,11 +34,11 @@ const FAQSection = () => {
   return (
     <Container>
       <div className="mx-auto max-w-5xl ">
-        <div className="text-center mb-12">
+        <div className="text-center">
           <Title normal={"Frequently Asked"} color={"Questions"} />
-          <p className="text-gray-600 mt-2">
+          <SubTitle>
             Find answers to the most common questions about AssetVerse.
-          </p>
+          </SubTitle>
         </div>
         <div className="space-y-4">
           {FAQS.map((faq, index) => (

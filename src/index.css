@@ -3,18 +3,29 @@
   themes: light, dark;
 }
 
+@font-face {
+  font-family: "Roboto";
+  src: url("/public/robotoMono.ttf") format("woff2");
+}
+
+@font-face {
+  font-family: "Arimo";
+  src: url("/public/Arimo.ttf") format("woff2");
+}
+.arimo {
+  font-family: "Arimo";
+}
 /* LIGHT THEME */
 @plugin "daisyui/theme" {
   name: "light";
-  --color-primary: #1e40af; /* Indigo 800 – trust & authority */
-  --color-secondary: #475569; /* Slate 600 – professional neutral */
-  --color-accent: #16a34a; /* Green 600 – confirm / assign asset */
-  --color-neutral: #334155; /* Slate 700 – text / layout */
+  --color-primary: #1e40af; /* buttons, active links */
+  --color-secondary: #475569; /* secondary text */
+  --color-accent: #16a34a; /* assign / approve */
+  --color-neutral: #334155; /* headings */
 
-  /*  Base colors */
-  --color-base-100: #ffffff;
-  --color-base-200: #f1f5f9;
-  --color-base-300: #e2e8f0;
+  --color-base-100: #ffffff; /* page */
+  --color-base-200: #f1f5f9; /* section bg */
+  --color-base-300: #e2e8f0; /* cards */
   --color-base-content: #0f172a;
 }
 
@@ -23,36 +34,22 @@
 @plugin "daisyui/theme" {
   name: "dark";
   default: true;
-  --color-primary: #60a5fa; /* Soft Blue – readable on dark */
-  --color-secondary: #94a3b8; /* Muted slate */
-  --color-accent: #22c55e; /* Green 500 – positive action */
-  --color-neutral: #cbd5e1; /* Light neutral text */
+  --color-primary: #60a5fa; /* CTA, active */
+  --color-secondary: #94a3b8; /* muted text */
+  --color-accent: #22c55e; /* success */
+  --color-neutral: #cbd5e1; /* titles */
 
-  --color-base-100: #020617;
+  --color-base-100: #020617; /* page bg */
   --color-base-200: #020617;
-  --color-base-300: #1e293b;
+  --color-base-300: #0f172a; /* navbar, cards */
   --color-base-content: #e5e7eb;
 }
 
 /* Global styles */
 * {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Roboto", sans-serif;
   scroll-behavior: smooth;
 }
-
-.raleway {
-  font-family: "Raleway", sans-serif;
-}
-
-/* Active link */
-ul li a.active {
-  @apply text-accent;
-}
-
-li a.active {
-  @apply bg-secondary text-white;
-}
-
 /* Remove number input spinner */
 .no-spinner::-webkit-inner-spin-button,
 .no-spinner::-webkit-outer-spin-button {

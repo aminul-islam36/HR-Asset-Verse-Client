@@ -9,21 +9,12 @@ const Home = () => {
   const { role } = useRole();
 
   return (
-    <div>
-      <div>
-        <Hero />
-      </div>
-      <div>
-        <About />
-      </div>
-      <div>{role === "Hr" && <Packages />}</div>
-      <div>
-        <TestimonialsSection />
-      </div>
-
-      <div>
-        <FAQSection />
-      </div>
+    <div className="bg-base-200">
+      <Hero />
+      <About />
+      {role === "Hr" && <Packages />}
+      <TestimonialsSection />
+      <FAQSection />
     </div>
   );
 };

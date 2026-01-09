@@ -14,7 +14,7 @@ const MyTeam = () => {
     enabled: !!user?.email,
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/myEmployeeList?employeeEmail=${user.email}`
+        `/employees?employeeEmail=${user.email}`
       );
       return res.data;
     },
@@ -34,9 +34,7 @@ const MyTeam = () => {
     queryKey: ["teamMembers", company],
     enabled: !!company,
     queryFn: async () => {
-      const res = await axiosSecure.get(
-        `/myEmployeeList?companyName=${company}`
-      );
+      const res = await axiosSecure.get(`/employees?companyName=${company}`);
       return res.data;
     },
   });

@@ -3,15 +3,15 @@ import Container from "./Container";
 const Hero = () => {
   return (
     <Container>
-      <div className="grid md:grid-cols-2 gap-5 lg:gap-10 items-center">
+      <div className="flex flex-col-reverse md:grid md:grid-cols-2 gap-5 lg:gap-10 items-center my-10  min-h-[70vh]">
         {/* Left section */}
         <div className="space-y-6">
-          <h1 className="text-3xl md:text-5xl font-bold text-neutral leading-tight">
-            Manage Your Company Assets <br />
-            with <span className="text-primary">AssetVerse</span>
+          <h1 className="text-3xl md:text-5xl font-bold text-base-content leading-tight arimo">
+            Manage Your <br /> Company Assets with{" "}
+            <span className="text-primary">AssetVerse</span>
           </h1>
 
-          <p className="text-lg text-gray-500">
+          <p className="text-base">
             A powerful platform to track, monitor, and manage all your company
             assets efficiently. Boost productivity and reduce asset loss with
             real-time updates.
@@ -27,7 +27,7 @@ const Hero = () => {
             </button>
           </div>
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center items-center p-4">
           <img
             src={heroImg}
             alt="Asset Management"

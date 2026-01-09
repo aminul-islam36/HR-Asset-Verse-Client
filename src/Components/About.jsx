@@ -2,6 +2,7 @@ import { Briefcase, Clock, ShieldCheck, Users } from "lucide-react";
 import React from "react";
 import Container from "./Container";
 import Title from "../Utilities/Title";
+import SubTitle from "../Utilities/SubTitle";
 
 const About = () => {
   const benefits = [
@@ -29,13 +30,12 @@ const About = () => {
 
   return (
     <Container>
-      <div className="p-5 rounded-2xl">
-        <div className="text-center mb-12">
+      <div className="rounded-2xl">
+        <div className="text-center">
           <Title normal={" Why Choose"} color={"AssetVerse ?"} />
-          <p className="text-gray-600 mt-3">
+          <SubTitle>
             Efficient, secure and modern tools to help you manage your company
-            assets.
-          </p>
+          </SubTitle>
         </div>
 
         {/* Cards */}
@@ -43,9 +43,11 @@ const About = () => {
           {benefits.map((item, index) => (
             <div
               key={index}
-              className="bg-secondary text-white p-6 rounded-xl shadow hover:shadow-md transition text-center space-y-4"
+              className="bg-base-200 text-base-content p-6 rounded-xl shadow:sm hover:shadow transition text-center border border-gray-200 space-y-4"
             >
-              <div className="flex justify-center text-white">{item.icon}</div>
+              <div className="flex justify-center text-success">
+                {item.icon}
+              </div>
               <h3 className="text-xl font-semibold">{item.title}</h3>
               <p className="text-sm">{item.desc}</p>
             </div>

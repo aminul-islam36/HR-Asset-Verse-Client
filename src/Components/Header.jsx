@@ -5,10 +5,12 @@ import Swal from "sweetalert2";
 import { IoMdMenu } from "react-icons/io";
 import useRole from "../hooks/useRole";
 import CustomLink from "../Utilities/CustomLink";
+import Loading from "./Loading";
+import PageLoader from "./PageLoader";
 
 const Header = () => {
-  const { user, logOutUser } = useAuth();
-  const { role } = useRole();
+  const { user, logOutUser, isLoading } = useAuth();
+  const { role, roleLoading } = useRole();
   console.log(role);
 
   // Public links
@@ -50,10 +52,13 @@ const Header = () => {
       })
       .catch((err) => console.log(err));
   };
+  // if (isLoading || roleLoading) {
+  //   return <PageLoader />;
+  // }
 
   return (
-    <div className="shadow-sm sticky top-0 z-100 py-1">
-      <div className="navbar w-11/12 max-w-7xl mx-auto">
+    <div className="sticky top-0 z-50 bg-base-300 text-base-content shadow-sm">
+      <div className="navbar h-16 max-w-7xl mx-auto px-4 lg:px-6 text-gray-200">
         <div className="navbar-start">
           {user && role && (
             <div className="dropdown">
@@ -90,6 +95,12 @@ const Header = () => {
           <ul className="menu menu-horizontal px-1">
             {!user &&
               links.map((link) => (
+                <CustomLink key={link.href} link={link}></CustomLink>
+              ))}
+
+            {user &&
+              role === "Hr" &&
+              hrMenu.map((link) => (
                 <CustomLink key={link.href} link={link}></CustomLink>
               ))}
           </ul>

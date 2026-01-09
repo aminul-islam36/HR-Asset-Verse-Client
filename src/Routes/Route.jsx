@@ -4,7 +4,6 @@ import AllRequests from "../Pages/AllRequests/AllRequests";
 import RequestAsset from "../Pages/RequestAsset/RequestAsset";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import AddAsset from "../Pages/AddAsset/AddAsset";
-import MyEmployeeList from "../Pages/MyEmployyList/MyEmployeeList";
 import AllAsset from "../Pages/AssetListPage/AllAsset";
 import MyTeam from "../Pages/MyTeam/MyTeam";
 import EmployeeProfile from "../Pages/EmployeeProfile/EmployeeProfile";
@@ -19,6 +18,7 @@ import AdminRoute from "./AdminRoute";
 import UpgradePackage from "../Pages/UpgradePackage/UpgradePackage";
 import Testimonial from "../Pages/Testimonial/Testimonial";
 import JoinHr from "../Pages/join-hr/JoinHr";
+import Employees from "../Pages/Employees/Employees";
 
 const router = createBrowserRouter([
   {
@@ -58,7 +58,7 @@ const router = createBrowserRouter([
         path: "/employee-list",
         element: (
           <AdminRoute>
-            <MyEmployeeList />
+            <Employees />
           </AdminRoute>
         ),
       },

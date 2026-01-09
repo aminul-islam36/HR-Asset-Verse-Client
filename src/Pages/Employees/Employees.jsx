@@ -4,7 +4,7 @@ import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
-const MyEmployeeList = () => {
+const Employees = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
@@ -16,9 +16,7 @@ const MyEmployeeList = () => {
     queryKey: ["employeeList", user.email],
     enabled: !!user.email,
     queryFn: async () => {
-      const res = await axiosSecure.get(
-        `/myEmployeeList?hrEmail=${user?.email}`
-      );
+      const res = await axiosSecure.get(`/employees?hrEmail=${user?.email}`);
       return res.data;
     },
   });
@@ -34,9 +32,7 @@ const MyEmployeeList = () => {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await axiosSecure.delete(
-          `/myEmployeeList/${id}?hrEmail=${user?.email}`
-        );
+        await axiosSecure.delete(`/employees/${id}?hrEmail=${user?.email}`);
         refetch();
         Swal.fire({
           title: "Deleted!",
@@ -99,4 +95,4 @@ const MyEmployeeList = () => {
   );
 };
 
-export default MyEmployeeList;
+export default Employees;

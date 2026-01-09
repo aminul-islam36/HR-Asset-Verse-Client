@@ -17,12 +17,10 @@ const AuthProvider = ({ children }) => {
   // user Register login logOut Function
 
   const registerUser = (email, password) => {
-    setIsLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   const loginUser = (email, password) => {
-    setIsLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
@@ -30,7 +28,7 @@ const AuthProvider = ({ children }) => {
     return updateProfile(auth.currentUser, updateProfileId);
   };
   const logOutUser = () => {
-    setIsLoading(true);
+    localStorage.removeItem("token");
     return signOut(auth);
   };
 
