@@ -6,8 +6,8 @@ const CustomLink = ({ link }) => {
     <NavLink
       to={link.href}
       className={({ isActive }) =>
-        `py-2.5 px-4 text-base rounded hover:text-accent/70 font-semibold
-     ${isActive ? "text-primary" : "text-neutral"}`
+        `py-2.5 px-3 text-base rounded hover:text-accent/70 font-semibold arimo
+     ${isActive ? "text-accent" : "text-neutral"}`
       }
     >
       {link.name}

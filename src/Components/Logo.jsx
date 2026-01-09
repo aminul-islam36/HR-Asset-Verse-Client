@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router";
-import AssetLogo from "../assets/logo.png";
+import AssetLogo from "/logo.png";
 
 const Logo = () => {
   return (

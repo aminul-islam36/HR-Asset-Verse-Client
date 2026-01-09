@@ -4,6 +4,9 @@ import TestimonialsSection from "../../Components/Testimonials";
 import FAQSection from "../../Components/FAQSection";
 import Hero from "../../Components/Hero";
 import useRole from "../../hooks/useRole";
+import Features from "../../Components/Features";
+import CallToAction from "../../Components/CallToAction";
+import HowItWorks from "../../Components/HowItWorks";
 
 const Home = () => {
   const { role } = useRole();
@@ -11,10 +14,13 @@ const Home = () => {
   return (
     <div className="bg-base-200">
       <Hero />
+      <Features />
+      <HowItWorks />
       <About />
       {role === "Hr" && <Packages />}
       <TestimonialsSection />
       <FAQSection />
+      <CallToAction />
     </div>
   );
 };

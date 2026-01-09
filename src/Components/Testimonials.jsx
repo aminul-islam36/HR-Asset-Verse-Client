@@ -44,13 +44,13 @@ const TestimonialsSection = () => {
             <h3 className="text-3xl font-bold text-base-content mt-2">
               {stat.state}
             </h3>
-            <p className="text-base">{stat.name}</p>
+            <p className="text-base text-gray-500">{stat.name}</p>
           </div>
         ))}
       </div>
       {/* ----------------Testimonials------------------- */}
       <div className="grid md:grid-cols-3 gap-8">
-        <div className="p-8 bg-base-100 rounded-2xl shadow border border-gray-200 *:text-base">
+        <div className="p-8 bg-base-100 rounded-2xl shadow border border-gray-200 *:text-base text-gray-500">
           <p className="italic">
             “AssetVerse completely transformed how we manage company assets.
             It's fast, reliable, and extremely easy to use.”
@@ -58,7 +58,7 @@ const TestimonialsSection = () => {
           <h4 className="mt-4 font-semibold">— Sarah Johnson, HR Manager</h4>
         </div>
 
-        <div className="p-8 bg-base-100 rounded-2xl shadow border border-gray-200 *:text-base">
+        <div className="p-8 bg-base-100 rounded-2xl shadow border border-gray-200 *:text-base text-gray-500">
           <p className="italic">
             “Tracking assets for 200+ employees used to be a nightmare, but
             AssetVerse made everything automated and stress-free.”
@@ -66,7 +66,7 @@ const TestimonialsSection = () => {
           <h4 className="mt-4 font-semibold">— Mark Wilson, Operations Head</h4>
         </div>
 
-        <div className="p-8 bg-base-100 rounded-2xl shadow border border-gray-200">
+        <div className="p-8 bg-base-100 rounded-2xl shadow border border-gray-200 text-gray-500">
           <p className="italic">
             “Excellent support team! Their Premium plan gave us full control and
             custom branding. Highly recommended!”

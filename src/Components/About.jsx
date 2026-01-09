@@ -49,7 +49,7 @@ const About = () => {
                 {item.icon}
               </div>
               <h3 className="text-xl font-semibold">{item.title}</h3>
-              <p className="text-sm">{item.desc}</p>
+              <p className="text-sm text-gray-500">{item.desc}</p>
             </div>
           ))}
         </div>

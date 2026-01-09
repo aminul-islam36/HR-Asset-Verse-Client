@@ -35,7 +35,7 @@ const Header = () => {
     { name: "Add Asset", href: "/add-asset" },
     { name: "Asset List", href: "/asset-list" },
     { name: "All Requests", href: "/all-requests" },
-    { name: "My Employee List", href: "/employee-list" },
+    { name: "Employee List", href: "/employee-list" },
     { name: "Upgrade Package", href: "/upgrade-Package" },
     { name: "Profile", href: "/profile" },
   ];
@@ -62,11 +62,7 @@ const Header = () => {
         <div className="navbar-start">
           {user && role && (
             <div className="dropdown">
-              <div
-                tabIndex={0}
-                role="button"
-                className="btn btn-ghost lg:hidden"
-              >
+              <div tabIndex={0} role="button" className="btn lg:hidden">
                 <IoMdMenu />
               </div>
               <ul
@@ -75,6 +71,10 @@ const Header = () => {
               >
                 {role === "employee" &&
                   employee.map((e) => (
+                    <CustomLink key={e.href} link={e}></CustomLink>
+                  ))}
+                {role === "Hr" &&
+                  hrMenu.map((e) => (
                     <CustomLink key={e.href} link={e}></CustomLink>
                   ))}
                 {role === "Hr" &&
@@ -99,8 +99,8 @@ const Header = () => {
               ))}
 
             {user &&
-              role === "Hr" &&
-              hrMenu.map((link) => (
+              role === "employee" &&
+              employee.map((link) => (
                 <CustomLink key={link.href} link={link}></CustomLink>
               ))}
           </ul>
