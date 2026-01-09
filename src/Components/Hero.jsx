@@ -1,16 +1,17 @@
-import heroImg from "../assets/bussniess.webp";
+import heroImg from "../assets/business.webp";
+import Container from "./Container";
 const Hero = () => {
   return (
-    <div className="bg-gray-50 py-8 lg:py-20">
+    <Container>
       <div className="grid md:grid-cols-2 gap-5 lg:gap-10 items-center">
         {/* Left section */}
         <div className="space-y-6">
-          <h1 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight">
+          <h1 className="text-3xl md:text-5xl font-bold text-neutral leading-tight">
             Manage Your Company Assets <br />
-            with <span className="text-blue-600">AssetVerse</span>
+            with <span className="text-primary">AssetVerse</span>
           </h1>
 
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-gray-500">
             A powerful platform to track, monitor, and manage all your company
             assets efficiently. Boost productivity and reduce asset loss with
             real-time updates.
@@ -34,7 +35,7 @@ const Hero = () => {
           />
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 

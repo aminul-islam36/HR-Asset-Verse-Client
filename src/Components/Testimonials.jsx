@@ -1,14 +1,15 @@
 import { Star, Building2, Users, ShieldCheck } from "lucide-react";
+import Container from "./Container";
+import Title from "../Utilities/Title";
 
 const TestimonialsSection = () => {
   return (
-    <div className="p-5 rounded-2xl lg:py-10 bg-white">
+    <Container>
+      {" "}
       <div>
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-            Trusted by <span className="text-blue-600">Top Companies</span>
-          </h2>
+          <Title normal={"Trusted by "} color={"Top Companies"} />
           <p className="text-gray-600 mt-2">
             More than 100+ businesses rely on AssetVerse for asset management.
           </p>
@@ -74,7 +75,7 @@ const TestimonialsSection = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 

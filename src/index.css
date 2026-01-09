@@ -1,20 +1,68 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: light --default;
+  themes: light, dark;
 }
+
+/* LIGHT THEME */
 @plugin "daisyui/theme" {
   name: "light";
+  --color-primary: #1e40af; /* Indigo 800 – trust & authority */
+  --color-secondary: #475569; /* Slate 600 – professional neutral */
+  --color-accent: #16a34a; /* Green 600 – confirm / assign asset */
+  --color-neutral: #334155; /* Slate 700 – text / layout */
+
+  /*  Base colors */
+  --color-base-100: #ffffff;
+  --color-base-200: #f1f5f9;
+  --color-base-300: #e2e8f0;
+  --color-base-content: #0f172a;
+}
+
+/*  DARK THEME */
+
+@plugin "daisyui/theme" {
+  name: "dark";
   default: true;
-  --color-primary: blue;
-  --color-secondary: teal;
+  --color-primary: #60a5fa; /* Soft Blue – readable on dark */
+  --color-secondary: #94a3b8; /* Muted slate */
+  --color-accent: #22c55e; /* Green 500 – positive action */
+  --color-neutral: #cbd5e1; /* Light neutral text */
+
+  --color-base-100: #020617;
+  --color-base-200: #020617;
+  --color-base-300: #1e293b;
+  --color-base-content: #e5e7eb;
+}
+
+/* Global styles */
+* {
+  font-family: "Montserrat", sans-serif;
+  scroll-behavior: smooth;
+}
+
+.raleway {
+  font-family: "Raleway", sans-serif;
+}
+
+/* Active link */
+ul li a.active {
+  @apply text-accent;
 }
 
 li a.active {
-  @apply bg-secondary;
+  @apply bg-secondary text-white;
 }
 
+/* Remove number input spinner */
+.no-spinner::-webkit-inner-spin-button,
+.no-spinner::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Custom button */
 .custom-button {
-  @apply btn text-white bg-[#724ebf] py-6 px-10;
+  @apply btn text-white py-6 px-10;
   background: radial-gradient(
     100.03% 140.18% at 0% 85.53%,
     #ff00ff 0%,

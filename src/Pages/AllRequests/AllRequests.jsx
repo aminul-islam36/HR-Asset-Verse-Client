@@ -1,9 +1,10 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
-import Title from "../../Utilities/Title";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Title from "../../Utilities/Title";
+import Container from "../../Components/Container";
 
 const AllRequests = () => {
   const { user } = useAuth();
@@ -75,13 +76,13 @@ const AllRequests = () => {
     }
   };
   return (
-    <div className="mx-auto max-w-7xl w-11/12 py-10">
-      <Title title={`Total Assets Request ${requests.length}`} />
+    <Container>
+      <Title normal={"Total Assets Request"} color={`${requests.length}`} />
 
       <div className="overflow-x-auto pt-5">
         <table className="table w-full border overflow-hidden x-auto">
           <thead>
-            <tr className="bg-gray-200">
+            <tr>
               <th>Asset Name</th>
               <th>Employee</th>
               <th>Date</th>
@@ -123,7 +124,7 @@ const AllRequests = () => {
           </tbody>
         </table>
       </div>
-    </div>
+    </Container>
   );
 };
 

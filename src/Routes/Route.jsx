@@ -15,11 +15,9 @@ import MyAssets from "../Pages/MyAssets/MyAssets";
 import PaymentSuccess from "../Pages/paymentSuccess/payment-success";
 import Login from "../Pages/Login/Login";
 import RootLayout from "../Layouts/RootLayout";
-import AuthLayout from "../Layouts/AuthLayout";
 import AdminRoute from "./AdminRoute";
 import UpgradePackage from "../Pages/UpgradePackage/UpgradePackage";
 import Testimonial from "../Pages/Testimonial/Testimonial";
-import HrAdminRegisterForm from "../Components/HrAdminRegisterForm";
 import JoinHr from "../Pages/join-hr/JoinHr";
 
 const router = createBrowserRouter([
@@ -28,7 +26,6 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       { index: true, element: <Home /> },
-
       {
         path: "/testimonial",
         element: <Testimonial />,
@@ -115,12 +112,6 @@ const router = createBrowserRouter([
           </EmployeeRoute>
         ),
       },
-    ],
-  },
-  {
-    path: "/",
-    element: <AuthLayout />,
-    children: [
       {
         path: "login",
         element: <Login />,

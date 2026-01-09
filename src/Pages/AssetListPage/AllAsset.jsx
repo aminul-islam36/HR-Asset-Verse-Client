@@ -87,7 +87,7 @@ const AllAsset = () => {
       <Title title={`Total Available Assets ${assets.length}`} />
       <div className="overflow-x-auto shadow rounded-lg">
         <table className="table w-full pt-5">
-          <thead className="bg-gray-100">
+          <thead className="">
             <tr>
               <th>#</th>
               <th>Product</th>
@@ -100,16 +100,19 @@ const AllAsset = () => {
 
           <tbody>
             {assets.map((item, index) => (
-              <tr key={item._id} className="hover:bg-gray-50">
+              <tr key={item._id} className="hover:bg-gray-500">
                 <td>{index + 1}</td>
 
-                <td className="flex items-center w-[max-content] gap-3">
-                  <img
-                    src={item.productImage}
-                    alt={item.productName}
-                    className="w-12 h-12 rounded-md object-cover"
-                  />
-                  <span>{item.productName}</span>
+                <td>
+                  <div className="flex gap-2 items-center min-w-max">
+                    {" "}
+                    <img
+                      src={item.productImage}
+                      alt={item.productName}
+                      className="w-12 h-12 rounded-md object-cover"
+                    />
+                    <span>{item.productName}</span>
+                  </div>
                 </td>
 
                 <td>

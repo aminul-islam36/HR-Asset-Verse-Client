@@ -41,10 +41,7 @@ const AuthProvider = ({ children }) => {
       setUser(currentUser);
       if (currentUser) {
         const email = { email: currentUser?.email };
-        const res = await axios.post(
-          "https://hr-asset-verse-server.vercel.app/jwtToken",
-          email
-        );
+        const res = await axios.post("http://localhost:5000/jwt", email);
 
         localStorage.setItem("token", res.data.token);
       }

@@ -51,7 +51,7 @@ const MyAssets = () => {
 
       <div className="overflow-x-auto shadow rounded-lg">
         <table className="table w-full">
-          <thead className="bg-gray-100">
+          <thead>
             <tr>
               <th>#</th>
               <th>Product</th>
@@ -76,7 +76,7 @@ const MyAssets = () => {
               >
                 <td>{index + 1}</td>
 
-                <td className="flex items-center gap-3 min-w-[max-content]">
+                <td className="flex items-center gap-3 min-w-max">
                   <img
                     src={item.assetImage}
                     alt={item.assetName}
@@ -104,7 +104,7 @@ const MyAssets = () => {
         </table>
       </div>
 
-      {/* --------------------------Pagination ---------------------- */}
+      {/* --------------------------Pagination for ---------------------- */}
       <div className="text-center mt-5 space-x-2">
         <button
           className="btn"

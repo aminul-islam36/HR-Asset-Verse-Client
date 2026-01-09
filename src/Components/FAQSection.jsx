@@ -1,5 +1,6 @@
 import React from "react";
 import Title from "../Utilities/Title";
+import Container from "./Container";
 
 const FAQSection = () => {
   const FAQS = [
@@ -30,29 +31,28 @@ const FAQSection = () => {
     },
   ];
   return (
-    <div className="mx-auto py-5 max-w-5xl ">
-      <div className="text-center mb-12">
-        {/* <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-          Frequently Asked Questions
-        </h2> */}
-        <Title title="Frequently Asked Questions" />
-        <p className="text-gray-600 mt-2">
-          Find answers to the most common questions about AssetVerse.
-        </p>
+    <Container>
+      <div className="mx-auto max-w-5xl ">
+        <div className="text-center mb-12">
+          <Title normal={"Frequently Asked"} color={"Questions"} />
+          <p className="text-gray-600 mt-2">
+            Find answers to the most common questions about AssetVerse.
+          </p>
+        </div>
+        <div className="space-y-4">
+          {FAQS.map((faq, index) => (
+            <div
+              key={index}
+              className="collapse collapse-arrow bg-base-100 border border-base-300"
+            >
+              <input type="radio" name="my-accordion-2" />
+              <div className="collapse-title font-semibold">{faq.question}</div>
+              <div className="collapse-content text-sm">{faq.answer}</div>
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="space-y-4">
-        {FAQS.map((faq, index) => (
-          <div
-            key={index}
-            className="collapse collapse-arrow bg-base-100 border border-base-300"
-          >
-            <input type="radio" name="my-accordion-2" />
-            <div className="collapse-title font-semibold">{faq.question}</div>
-            <div className="collapse-content text-sm">{faq.answer}</div>
-          </div>
-        ))}
-      </div>
-    </div>
+    </Container>
   );
 };
 
