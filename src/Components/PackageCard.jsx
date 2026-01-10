@@ -1,10 +1,10 @@
 import React from "react";
 import useAuth from "../hooks/useAuth";
-import useAxiosSecure from "../hooks/useAxiosSecure";
+import useaxiosPublic from "../hooks/useAxiosPublic";
 
 const PackageCard = ({ pkg }) => {
   const { user } = useAuth();
-  const axiosSecure = useAxiosSecure();
+  const axiosURL = useaxiosPublic();
   const handlePayment = async (pkg) => {
     const paymentInfo = {
       price: pkg.price,
@@ -13,7 +13,7 @@ const PackageCard = ({ pkg }) => {
     };
     console.log(paymentInfo);
 
-    const res = await axiosSecure.post("/create-checkout-session", paymentInfo);
+    const res = await axiosURL.post("/create-checkout-session", paymentInfo);
     window.location.href = res.data.url;
   };
   return (

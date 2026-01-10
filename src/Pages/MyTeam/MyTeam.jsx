@@ -2,20 +2,18 @@ import React, { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import Title from "../../Utilities/Title";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useaxiosPublic from "../../hooks/useAxiosPublic";
 
 const MyTeam = () => {
   const { user } = useAuth();
-  const axiosSecure = useAxiosSecure();
+  const axiosURL = useaxiosPublic();
   const [company, setCompany] = useState("");
 
   const { data: affiliations = [], isLoading } = useQuery({
     queryKey: ["myAffiliations", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
-      const res = await axiosSecure.get(
-        `/employees?employeeEmail=${user.email}`
-      );
+      const res = await axiosURL.get(`/employees?employeeEmail=${user.email}`);
       return res.data;
     },
   });
@@ -34,7 +32,7 @@ const MyTeam = () => {
     queryKey: ["teamMembers", company],
     enabled: !!company,
     queryFn: async () => {
-      const res = await axiosSecure.get(`/employees?companyName=${company}`);
+      const res = await axiosURL.get(`/employees?companyName=${company}`);
       return res.data;
     },
   });
@@ -86,13 +84,17 @@ const MyTeam = () => {
                   <img
                     className="rounded-full border border-secondary"
                     src={
-                      member.photoURL ||
+                      member.employeePhoto ||
                       "https://i.ibb.co/ZYW3VTp/brown-brim.png"
                     }
                     alt="profile"
                   />
                 </div>
-                <h2 className="font-bold text-lg">{member.employeeName}</h2>
+                <h2 className="font-bold text-lg text-accent">
+                  {member.employeeName.length > 9
+                    ? `${member.employeeName?.slice(0, 9)}...`
+                    : member.employeeName}
+                </h2>
                 <p className="text-sm text-gray-500">{member.employeeEmail}</p>
                 <div className="badge badge-outline mt-2">
                   Assets: {member.assetsCount}

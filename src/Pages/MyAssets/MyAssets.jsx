@@ -3,11 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import { motion } from "framer-motion";
 import { maskEmail } from "../../Utilities/emailMaks";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useaxiosPublic from "../../hooks/useAxiosPublic";
 
 const MyAssets = () => {
   const { user } = useAuth();
-  const axiosSecure = useAxiosSecure();
+  const axiosURL = useaxiosPublic();
   const [page, setPage] = useState(0);
   const limit = 10;
   const skip = page * limit;
@@ -17,7 +17,7 @@ const MyAssets = () => {
     queryKey: ["AssignedAssets", user?.email, page, filter],
     enabled: !!user?.email,
     queryFn: async () => {
-      const res = await axiosSecure.get(
+      const res = await axiosURL.get(
         `/assignedAssets?employeeEmail=${user.email}&limit=${limit}&skip=${skip}&filter=${filter}`
       );
       return res.data;

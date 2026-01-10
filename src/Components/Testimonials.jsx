@@ -36,8 +36,11 @@ const TestimonialsSection = () => {
       </div>
       {/*---------- Stats ---------*/}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 text-center">
-        {states.map((stat) => (
-          <div className="  p-6 bg-base-100 rounded-2xl border border-gray-200">
+        {states.map((stat, index) => (
+          <div
+            key={index}
+            className="  p-6 bg-base-100 rounded-2xl border border-gray-200"
+          >
             <span className="mx-auto text-secondary *:w-10 *:h-10 inline-block">
               {stat.icon}
             </span>

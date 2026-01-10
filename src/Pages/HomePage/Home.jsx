@@ -17,7 +17,7 @@ const Home = () => {
       <Features />
       <HowItWorks />
       <About />
-      {role === "Hr" && <Packages />}
+      {role === "hr" && <Packages />}
       <TestimonialsSection />
       <FAQSection />
       <CallToAction />

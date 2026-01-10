@@ -7,11 +7,11 @@ import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Title from "../../Utilities/Title";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useaxiosPublic from "../../hooks/useAxiosPublic";
 
 const AllAsset = () => {
   const { user } = useAuth();
-  const axiosSecure = useAxiosSecure();
+  const axiosURL = useaxiosPublic();
   const modalRef = useRef();
   const [editProduct, setEditProduct] = useState({});
   const { register, handleSubmit } = useForm();
@@ -23,7 +23,7 @@ const AllAsset = () => {
     queryKey: ["assets", user.email],
     enabled: !!user.email,
     queryFn: async () => {
-      const res = await axiosSecure.get(`/assets?hrEmail=${user.email}`);
+      const res = await axiosURL.get(`/assets?hrEmail=${user.email}`);
       return res.data;
     },
   });
@@ -38,7 +38,7 @@ const AllAsset = () => {
       cancelButtonText: "Cancel",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const res = await axiosSecure.delete(`/assets/${id}`);
+        const res = await axiosURL.delete(`/assets/${id}`);
 
         if (res.data.deletedCount > 0) {
           Swal.fire("Deleted!", "Request removed successfully", "success");
@@ -68,7 +68,7 @@ const AllAsset = () => {
       productQuantity: data.quantity,
       productImage: imageBB.data.data.url,
     };
-    const res = await axiosSecure.patch(
+    const res = await axiosURL.patch(
       `/assets/${editProduct._id}`,
       updatedAsset
     );

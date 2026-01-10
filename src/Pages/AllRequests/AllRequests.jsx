@@ -1,14 +1,13 @@
-import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Title from "../../Utilities/Title";
 import Container from "../../Components/Container";
+import useaxiosPublic from "../../hooks/useAxiosPublic";
 
 const AllRequests = () => {
   const { user } = useAuth();
-  const axiosSecure = useAxiosSecure();
+  const axiosURL = useaxiosPublic();
 
   const {
     data: requests = [],
@@ -17,9 +16,7 @@ const AllRequests = () => {
   } = useQuery({
     queryKey: ["asset-requests"],
     queryFn: async () => {
-      const res = await axiosSecure.get(
-        `/asset-requests?hrEmail=${user.email}`
-      );
+      const res = await axiosURL.get(`/asset-requests?hrEmail=${user.email}`);
       return res.data;
     },
   });
@@ -37,7 +34,7 @@ const AllRequests = () => {
       cancelButtonText: "Cancel",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const res = await axiosSecure.delete(`/asset-requests/${req._id}`);
+        const res = await axiosURL.delete(`/asset-requests/${req._id}`);
 
         if (res.data.deletedCount > 0) {
           Swal.fire("Deleted!", "Request removed successfully", "success");
@@ -48,6 +45,8 @@ const AllRequests = () => {
   };
 
   const handleApprove = async (req) => {
+    console.log(req);
+
     const assignedData = {
       assetId: req.assetId,
       assetName: req.assetName,
@@ -56,11 +55,11 @@ const AllRequests = () => {
       assetType: req.assetType,
       employeeEmail: req.requesterEmail,
       employeeName: req.requesterName,
+      employeePhoto: req.employeePhoto,
       hrEmail: req.hrEmail,
       companyName: req.companyName,
     };
-
-    const res = await axiosSecure.post(
+    const res = await axiosURL.post(
       `/approve-request/${req._id}`,
       assignedData
     );

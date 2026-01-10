@@ -6,7 +6,6 @@ import { IoMdMenu } from "react-icons/io";
 import useRole from "../hooks/useRole";
 import CustomLink from "../Utilities/CustomLink";
 import Loading from "./Loading";
-import PageLoader from "./PageLoader";
 
 const Header = () => {
   const { user, logOutUser, isLoading } = useAuth();
@@ -52,15 +51,15 @@ const Header = () => {
       })
       .catch((err) => console.log(err));
   };
-  // if (isLoading || roleLoading) {
-  //   return <PageLoader />;
-  // }
+  if (isLoading || roleLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="sticky top-0 z-50 bg-base-300 text-base-content shadow-sm">
       <div className="navbar h-16 max-w-7xl mx-auto px-4 lg:px-6 text-gray-200">
         <div className="navbar-start">
-          {user && role && (
+          {
             <div className="dropdown">
               <div tabIndex={0} role="button" className="btn lg:hidden">
                 <IoMdMenu />
@@ -69,26 +68,32 @@ const Header = () => {
                 tabIndex="-1"
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
               >
+                {!user &&
+                  links.map((link) => (
+                    <CustomLink key={link.href} link={link}></CustomLink>
+                  ))}
+
                 {role === "employee" &&
                   employee.map((e) => (
                     <CustomLink key={e.href} link={e}></CustomLink>
                   ))}
-                {role === "Hr" &&
-                  hrMenu.map((e) => (
-                    <CustomLink key={e.href} link={e}></CustomLink>
-                  ))}
-                {role === "Hr" &&
+                {role === "hr" &&
                   hrMenu.map((e) => (
                     <CustomLink key={e.href} link={e}></CustomLink>
                   ))}
                 <li>
-                  <button onClick={handleLogOut} className="btn btn-secondary">
-                    Log Out
-                  </button>
+                  {user && (
+                    <button
+                      onClick={handleLogOut}
+                      className="btn btn-secondary"
+                    >
+                      Log Out
+                    </button>
+                  )}
                 </li>
               </ul>
             </div>
-          )}
+          }
           <Logo />
         </div>
         <div className="navbar-center hidden lg:flex">
@@ -101,6 +106,11 @@ const Header = () => {
             {user &&
               role === "employee" &&
               employee.map((link) => (
+                <CustomLink key={link.href} link={link}></CustomLink>
+              ))}
+            {user &&
+              role === "hr" &&
+              hrMenu.map((link) => (
                 <CustomLink key={link.href} link={link}></CustomLink>
               ))}
           </ul>
@@ -133,15 +143,9 @@ const Header = () => {
                   tabIndex={0}
                   className="  menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow "
                 >
-                  {role === "employee" &&
-                    employee.map((e) => (
-                      <CustomLink key={e.href} link={e}></CustomLink>
-                    ))}
-                  {role === "Hr" &&
-                    hrMenu.map((e) => (
-                      <CustomLink key={e.href} link={e}></CustomLink>
-                    ))}
-                  <div className="divider my-3"></div>
+                  <li>
+                    <a href="#">Dashboard</a>
+                  </li>
                   <li>
                     <button
                       onClick={handleLogOut}

@@ -5,171 +5,237 @@ import { useForm } from "react-hook-form";
 import { IoMdClose } from "react-icons/io";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { FiEdit } from "react-icons/fi";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import {
+  FiEdit,
+  FiMail,
+  FiPhone,
+  FiBriefcase,
+  FiCalendar,
+  FiCamera,
+} from "react-icons/fi";
+import useaxiosPublic from "../../hooks/useAxiosPublic";
 
 const HrProfile = () => {
-  const { user, updateUserProfile } = useAuth();
+  const { user, profileUpdate } = useAuth();
   const modalRef = useRef();
-  const axiosSecure = useAxiosSecure();
+  const axiosURL = useaxiosPublic();
   const { register, handleSubmit } = useForm();
-  const [updateUser, setUpdateUser] = useState();
+  const [loading, setLoading] = useState(false);
 
-  const { data: hrData = {} } = useQuery({
+  const { data: hrData = {}, refetch } = useQuery({
     queryKey: ["hrData", user?.email],
-    enabled: !!user.email,
+    enabled: !!user?.email,
     queryFn: async () => {
-      const res = await axiosSecure.get(`/users/${user?.email}`);
+      const res = await axiosURL.get(`/users/${user?.email}`);
       return res.data;
     },
   });
 
-  const handleOpenModal = (user) => {
-    modalRef.current.showModal();
-    setUpdateUser(user);
-  };
   const handleEditProfile = async (data) => {
-    const imageFile = data.file[0];
-    const formData = new FormData();
-    formData.append("image", imageFile);
-    const imageBB = await axios.post(
-      `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`,
-      formData
-    );
-    await updateUserProfile({
-      displayName: data.name,
-      photoURL: imageBB.data.data.url,
-    });
-    // ---- Update Backend MongoDB Profile ----
-    await axiosSecure.patch(`/users/${user.email}`, {
-      name: data.name,
-      photoURL: imageBB.data.data.url,
-      phoneNumber: data.phoneNumber,
-    });
+    setLoading(true);
+    try {
+      let photoURL = user?.photoURL;
 
-    Swal.fire({
-      position: "top-end",
-      icon: "success",
-      title: "Profile Update successfull",
-      showConfirmButton: false,
-      timer: 1500,
-    });
+      if (data.file && data.file[0]) {
+        const formData = new FormData();
+        formData.append("image", data.file[0]);
+        const imageBB = await axios.post(
+          `https://api.imgbb.com/1/upload?key=${
+            import.meta.env.VITE_IMGBB_KEY
+          }`,
+          formData
+        );
+        photoURL = imageBB.data.data.url;
+      }
 
-    modalRef.current.close();
-    console.log({ name: data.name, image: imageBB.data.data.url });
+      await profileUpdate({
+        displayName: data.name,
+        photoURL: photoURL,
+      });
+
+      await axiosURL.patch(`/users/${user.email}`, {
+        name: data.name,
+        photoURL: photoURL,
+        phoneNumber: data.phoneNumber,
+      });
+
+      Swal.fire({
+        icon: "success",
+        title: "Profile Updated",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+
+      refetch();
+      modalRef.current.close();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
+
   return (
-    <>
-      <div className="w-11/12 md:w-8/12 lg:w-6/12 mx-auto my-10">
-        <div className="card bg-base-100 shadow-xl border border-gray-200">
-          <div className="card-body items-center text-center">
-            <div className="avatar">
-              <div className="w-32 rounded-full border">
+    <div className="min-h-screen bg-base-200 py-10 px-4">
+      <div className="max-w-4xl mx-auto">
+        {/* Profile Card */}
+        <div className="bg-base-100 rounded-3xl shadow-xl overflow-hidden border border-base-300">
+          {/* Cover Section */}
+          <div className="h-32 md:h-48 bg-linear-to-r from-gray-800 to-indigo-500"></div>
+
+          {/* User Info Section */}
+          <div className="relative px-6 pb-8">
+            <div className="flex flex-col md:flex-row items-center  md:items-center -mt-16 md:-mt-20 mb-6 gap-6">
+              <div className="relative group">
                 <img
+                  className="w-32 h-32 md:w-40 md:h-40 rounded-2xl border-4 border-base-100 object-cover shadow-lg bg-base-100"
                   src={
                     user?.photoURL ||
                     "https://cdn-icons-png.flaticon.com/512/219/219970.png"
                   }
-                  alt="HR"
+                  alt="Profile"
                 />
+                <div className="absolute inset-0 bg-black/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                  <FiCamera className="text-white text-2xl" />
+                </div>
+              </div>
+
+              <div className="flex-1 text-center md:text-left pt-2 md:pt-10">
+                <h1 className="text-3xl mt-5 font-bold text-neutral">
+                  {user?.displayName || "HR Manager"}
+                </h1>
+                <p className="text-secondary font-medium flex items-center justify-center md:justify-start gap-2">
+                  <FiBriefcase /> {hrData?.companyName || "AssetVerse HR"}
+                </p>
+              </div>
+
+              <div className="pt-2 md:pt-10">
+                <button
+                  onClick={() => modalRef.current.showModal()}
+                  className="btn btn-primary btn-md rounded-xl flex items-center gap-2 shadow-lg"
+                >
+                  <FiEdit /> Edit Profile
+                </button>
               </div>
             </div>
 
-            <h2 className="text-3xl font-bold mt-4">
-              {user?.displayName || "No Name"}
-            </h2>
-            <p className="text-gray-500 mt-1">
-              <span className="font-semibold">Email:</span> {user?.email}
-            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 p-6 bg-base-200 rounded-2xl border border-base-300">
+              <div className="flex items-center gap-4">
+                <div className="bg-primary/10 p-3 rounded-xl text-primary">
+                  <FiMail size={20} />
+                </div>
+                <div>
+                  <p className="text-xs text-secondary uppercase tracking-wider font-bold">
+                    Email Address
+                  </p>
+                  <p className="text-neutral font-semibold">{user?.email}</p>
+                </div>
+              </div>
 
-            <p className="text-gray-600">
-              <span className="font-semibold">My Company:</span>{" "}
-              {hrData?.companyName || "Human Resources"}
-            </p>
-            <p className="text-gray-600">
-              <span className="font-semibold">Phone:</span>{" "}
-              {hrData?.phoneNumber || "Not Provided"}
-            </p>
-            <p className="text-gray-600">
-              <span className="font-semibold">Joined : </span>
-              {new Date(hrData?.createdAt).toLocaleDateString() ||
-                "No Date Found"}
-            </p>
+              <div className="flex items-center gap-4">
+                <div className="bg-primary/10 p-3 rounded-xl text-primary">
+                  <FiPhone size={20} />
+                </div>
+                <div>
+                  <p className="text-xs text-secondary uppercase tracking-wider font-bold">
+                    Phone Number
+                  </p>
+                  <p className="text-neutral font-semibold">
+                    {hrData?.phoneNumber || "Not Provided"}
+                  </p>
+                </div>
+              </div>
 
-            <button
-              onClick={() => handleOpenModal(user)}
-              className="btn btn-secondary"
-            >
-              Edit Profile <FiEdit />
-            </button>
+              <div className="flex items-center gap-4">
+                <div className="bg-primary/10 p-3 rounded-xl text-primary">
+                  <FiCalendar size={20} />
+                </div>
+                <div>
+                  <p className="text-xs text-secondary uppercase tracking-wider font-bold">
+                    Member Since
+                  </p>
+                  <p className="text-neutral font-semibold">
+                    {hrData?.createdAt
+                      ? new Date(hrData.createdAt).toLocaleDateString("en-US", {
+                          month: "long",
+                          year: "numeric",
+                        })
+                      : "Recently"}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        {/* Update User Profile  */}
+
+        {/* Edit Modal */}
         <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
-          <div className="modal-box">
-            <h2 className="text-2xl font-semibold mb-4 text-center">
-              Update Your Profile
-            </h2>
-            <form
-              onSubmit={handleSubmit(handleEditProfile)}
-              className="space-y-4"
-            >
-              {/* Asset Name */}
-              <div>
-                <label className="label">Name</label>
-                <input
-                  {...register("name", { required: true })}
-                  type="text"
-                  defaultValue={updateUser?.displayName}
-                  placeholder="Your name..."
-                  className="input w-full"
-                />
-              </div>
-
-              {/* Profile Image  */}
-
-              <div>
-                <label className="label">Profile Image</label>
-                {updateUser?.photoURL && (
-                  <img
-                    src={updateUser?.photoURL}
-                    className="w-20 h-20 mb-2 rounded-full border"
-                  />
-                )}
-                <input
-                  {...register("file")}
-                  type="file"
-                  required
-                  className="file-input w-full"
-                />
-                {/* Phone Number  */}
-              </div>
-              <div>
-                <label className="label">Phone Number</label>
-
-                <input
-                  {...register("phoneNumber")}
-                  type="tel"
-                  placeholder="Your Phone..."
-                  className="input w-full"
-                />
-              </div>
-              {/* Submit Button */}
-              <button className="btn btn-secondary w-full mt-2">
-                Update Now
-              </button>
-            </form>
-            <div className="modal-action">
+          <div className="modal-box bg-base-100 border border-base-300 rounded-3xl p-8">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold text-neutral">
+                Update Profile
+              </h2>
               <form method="dialog">
-                <button className="btn">
-                  <IoMdClose />
+                <button className="btn btn-sm btn-circle btn-ghost text-neutral">
+                  <IoMdClose size={24} />
                 </button>
               </form>
             </div>
+
+            <form
+              onSubmit={handleSubmit(handleEditProfile)}
+              className="space-y-5"
+            >
+              <div className="form-control">
+                <label className="label text-neutral font-semibold">
+                  Full Name
+                </label>
+                <input
+                  {...register("name", { required: true })}
+                  type="text"
+                  defaultValue={user?.displayName}
+                  className="input input-bordered w-full bg-base-200"
+                />
+              </div>
+
+              <div className="form-control">
+                <label className="label text-neutral font-semibold">
+                  Phone Number
+                </label>
+                <input
+                  {...register("phoneNumber")}
+                  type="tel"
+                  defaultValue={hrData?.phoneNumber}
+                  className="input input-bordered w-full bg-base-200"
+                />
+              </div>
+
+              <div className="form-control">
+                <label className="label text-neutral font-semibold">
+                  Profile Photo
+                </label>
+                <input
+                  {...register("file")}
+                  type="file"
+                  className="file-input file-input-bordered file-input-primary w-full bg-base-200"
+                />
+              </div>
+
+              <button
+                disabled={loading}
+                className="btn btn-primary w-full mt-4 text-white font-bold h-14"
+              >
+                {loading ? (
+                  <span className="loading loading-spinner"></span>
+                ) : (
+                  "Save Changes"
+                )}
+              </button>
+            </form>
           </div>
         </dialog>
       </div>
-    </>
+    </div>
   );
 };
 

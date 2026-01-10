@@ -19,6 +19,7 @@ import UpgradePackage from "../Pages/UpgradePackage/UpgradePackage";
 import Testimonial from "../Pages/Testimonial/Testimonial";
 import JoinHr from "../Pages/join-hr/JoinHr";
 import Employees from "../Pages/Employees/Employees";
+import HrDashboard from "../Pages/HrDashboard/HrDashboard";
 
 const router = createBrowserRouter([
   {
@@ -133,6 +134,10 @@ const router = createBrowserRouter([
   {
     path: "*",
     element: <ErrorPage />,
+  },
+  {
+    path: "hrDashboard",
+    element: <HrDashboard />,
   },
 ]);
 

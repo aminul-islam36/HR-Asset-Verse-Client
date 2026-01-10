@@ -8,7 +8,6 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../firebase/fitebase.config";
-import axios from "axios";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -24,11 +23,10 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  const updateUserProfile = (updateProfileId) => {
+  const profileUpdate = (updateProfileId) => {
     return updateProfile(auth.currentUser, updateProfileId);
   };
   const logOutUser = () => {
-    localStorage.removeItem("token");
     return signOut(auth);
   };
 
@@ -37,12 +35,6 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
-      if (currentUser) {
-        const email = { email: currentUser?.email };
-        const res = await axios.post("http://localhost:5000/jwt", email);
-
-        localStorage.setItem("token", res.data.token);
-      }
       setIsLoading(false);
     });
     return () => {
@@ -52,7 +44,7 @@ const AuthProvider = ({ children }) => {
   const authInfo = {
     registerUser,
     loginUser,
-    updateUserProfile,
+    profileUpdate,
     logOutUser,
     user,
     isLoading,

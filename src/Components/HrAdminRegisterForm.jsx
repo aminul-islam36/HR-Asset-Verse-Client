@@ -6,90 +6,119 @@ import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router";
 import useaxiosPublic from "../hooks/useAxiosPublic";
+import { toast } from "react-toastify";
 
 const HrAdminRegisterForm = () => {
-  const [show, setShow] = useState(false);
-  const { registerUser, updateUserProfile } = useAuth();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const { registerUser, profileUpdate, setIsLoading } = useAuth();
   const axiosPublic = useaxiosPublic();
   const navigate = useNavigate();
   const location = useLocation();
+
   const { register, handleSubmit } = useForm();
 
   const handleRegistation = async (data) => {
-    // Upload to ImgBB
-    const name = data.name;
+    // 🔹 1. Frontend validation (NO loading here)
+    if (data.password !== data.confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
 
-    const imageFile = data.file[0];
-    const formData = new FormData();
-    formData.append("image", imageFile);
-    const imageBB = await axios.post(
-      `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`,
-      formData
-    );
-    const registerCompanyLogo = imageBB.data.data.url;
-    const newUser = {
-      name,
-      companyName: data.companyName,
-      companyLogo: registerCompanyLogo,
-      email: data.email,
-      password: data.password,
-      dateOfBirth: data.date,
-      role: "Hr",
-      packageLimit: 5,
-      currentEmployees: 0,
-      subscription: "basic",
-      createdAt: new Date().toLocaleDateString(),
-    };
+    setIsLoading(true);
 
-    registerUser(data.email, data.password)
-      .then(() => {
-        axiosPublic.post("/users", newUser).then((res) => {
-          console.log(res.data);
-          if (res.data.insertedId) {
-            updateUserProfile({
-              displayName: name,
-            }).then(() => {
-              Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Registation successfull",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-            });
-            navigate(location.state || "/");
-          }
+    try {
+      // 🔹 2. Upload image to ImgBB
+      const imageFile = data.file[0];
+      const formData = new FormData();
+      formData.append("image", imageFile);
+
+      const imageRes = await axios.post(
+        `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`,
+        formData
+      );
+
+      const logo = imageRes.data.data.url;
+
+      // 🔹 3. Create auth user (Firebase)
+      const result = await registerUser(data.email, data.password);
+
+      // 🔹 4. Prepare user object (NO password)
+      const name = `${data.fname} ${data.lname}`;
+      const newUser = {
+        name,
+        companyName: data.companyName,
+        companyLogo: logo,
+        email: data.email,
+        dateOfBirth: data.date,
+        role: "hr",
+        packageLimit: 5,
+        currentEmployees: 0,
+        subscription: "basic",
+        createdAt: new Date(),
+      };
+
+      // 🔹 5. Save user to backend
+      const dbRes = await axiosPublic.post("/users", newUser);
+
+      if (dbRes.data.insertedId) {
+        // 🔹 6. Update Firebase profile
+        await profileUpdate({
+          displayName: name,
+          photoURL: logo,
         });
-      })
-      .catch((err) => console.log(err));
-    console.log(data);
+
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Registration successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        navigate(location.state || "/");
+      }
+    } catch (err) {
+      console.error(err);
+
+      // 🔹 7. Auth error handling
+      if (err.code === "auth/email-already-in-use") {
+        toast.error("This email is already registered");
+      } else if (err.code === "auth/weak-password") {
+        toast.error("Password should be at least 6 characters");
+      } else {
+        toast.error("Registration failed. Please try again.");
+      }
+    } finally {
+      // 🔹 8. Stop loading ALWAYS
+      setIsLoading(false);
+    }
   };
+
   return (
     <div>
       <form onSubmit={handleSubmit(handleRegistation)} className="space-y-3">
-        <div>
-          <label className="label">Full Name</label>
+        <div className="md:flex gap-2">
           <input
-            {...register("name")}
-            type="text"
+            {...register("fname")}
             className="input w-full"
-            placeholder="Your Name"
+            placeholder="First Name"
+          />
+          <input
+            {...register("lname")}
+            className="input w-full"
+            placeholder="Last Name"
           />
         </div>
 
-        <div>
-          <label className="label">Company Name</label>
+        <div className="md:flex gap-2">
           <input
             {...register("companyName")}
-            type="text"
-            className="input w-full"
             required
+            className="input w-full"
             placeholder="Company Name"
           />
-        </div>
-
-        <div>
-          <label className="label">Company Logo</label>
           <input
             {...register("file")}
             type="file"
@@ -97,80 +126,73 @@ const HrAdminRegisterForm = () => {
             className="file-input w-full"
           />
         </div>
-        <div>
-          <label className="label">Date Of Birth</label>
-          <input
-            {...register("date")}
-            type="date"
-            required
-            className="input w-full"
-          />
-        </div>
 
-        <div>
-          <label className="label">Email</label>
-          <input
-            {...register("email")}
-            type="email"
-            required
-            className="input w-full"
-            placeholder="Your Email"
-          />
-        </div>
+        <input
+          {...register("date")}
+          type="date"
+          required
+          className="input w-full"
+        />
 
-        <div className="relative">
-          <label className="label">Password</label>
-          <input
-            {...register("password")}
-            type={show ? "text" : "password"}
-            required
-            className="input w-full"
-            placeholder="Password"
-          />
-          <span
-            onClick={() => setShow(!show)}
-            className="absolute top-2/5 translate-y-1/2 right-6 cursor-pointer z-10"
-          >
-            {show ? <IoEyeOutline /> : <IoEyeOffOutline />}
-          </span>
-        </div>
+        <input
+          {...register("email")}
+          type="email"
+          required
+          className="input w-full"
+          placeholder="Email"
+        />
 
-        <button className="custom-button inline-flex" style={{ width: "100%" }}>
-          Register as HR
-        </button>
+        <div className="md:flex gap-2">
+          <div className="relative w-full">
+            <input
+              {...register("password")}
+              type={showPassword ? "text" : "password"}
+              required
+              className="input w-full"
+              placeholder="Password"
+            />
+            <span
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-4 top-3 cursor-pointer"
+            >
+              {showPassword ? <IoEyeOutline /> : <IoEyeOffOutline />}
+            </span>
+          </div>
+
+          <div className="relative w-full">
+            <input
+              {...register("confirmPassword")}
+              type={showConfirmPassword ? "text" : "password"}
+              required
+              className="input w-full"
+              placeholder="Confirm Password"
+            />
+            <span
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              className="absolute right-4 top-3 cursor-pointer"
+            >
+              {showConfirmPassword ? <IoEyeOutline /> : <IoEyeOffOutline />}
+            </span>
+          </div>
+        </div>
+        {/* 🔹 Terms & Conditions */}
+        <label for="id" className="label">
+          <input
+            {...register("terms", { required: true })}
+            type="checkbox"
+            id="id"
+            className="checkbox checkbox-sm"
+          />
+          <p className="text-sm">
+            I agree to the{" "}
+            <span className="text-primary underline cursor-pointer">
+              Terms & Conditions
+            </span>
+          </p>
+        </label>
+
+        <button className="custom-button w-full">Register as HR</button>
       </form>
-      <div className="divider">Or</div>
-      {/* Google */}
-      <button className="btn w-full bg-white text-black border-[#e5e5e5]">
-        <svg
-          aria-label="Google logo"
-          width="16"
-          height="16"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 512 512"
-        >
-          <g>
-            <path d="m0 0H512V512H0" fill="#fff"></path>
-            <path
-              fill="#34a853"
-              d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"
-            ></path>
-            <path
-              fill="#4285f4"
-              d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"
-            ></path>
-            <path
-              fill="#fbbc02"
-              d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"
-            ></path>
-            <path
-              fill="#ea4335"
-              d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"
-            ></path>
-          </g>
-        </svg>
-        Login with Google
-      </button>
     </div>
   );
 };

@@ -2,11 +2,11 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useaxiosPublic from "../../hooks/useAxiosPublic";
 
 const Employees = () => {
   const { user } = useAuth();
-  const axiosSecure = useAxiosSecure();
+  const axiosURL = useaxiosPublic();
 
   const {
     data: Myemployees = [],
@@ -16,7 +16,7 @@ const Employees = () => {
     queryKey: ["employeeList", user.email],
     enabled: !!user.email,
     queryFn: async () => {
-      const res = await axiosSecure.get(`/employees?hrEmail=${user?.email}`);
+      const res = await axiosURL.get(`/employees?hrEmail=${user?.email}`);
       return res.data;
     },
   });
@@ -32,7 +32,7 @@ const Employees = () => {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await axiosSecure.delete(`/employees/${id}?hrEmail=${user?.email}`);
+        await axiosURL.delete(`/employees/${id}?hrEmail=${user?.email}`);
         refetch();
         Swal.fire({
           title: "Deleted!",
@@ -63,7 +63,10 @@ const Employees = () => {
             <div className="card-body">
               <div className="flex items-center gap-4">
                 <img
-                  src={emp.companyLogo}
+                  src={
+                    emp.employeePhoto ||
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtuphMb4mq-EcVWhMVT8FCkv5dqZGgvn_QiA&s"
+                  }
                   alt={emp.companyName}
                   className="w-12 h-12 rounded-full object-cover"
                 />

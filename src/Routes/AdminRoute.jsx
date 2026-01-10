@@ -7,10 +7,10 @@ const AdminRoute = ({ children }) => {
   const { user, isLoading } = useAuth();
   const { role, roleLoading } = useRole();
 
-  if (!user) return <Navigate to="/login" />;
   if (isLoading || roleLoading) return <Loading />;
+  if (!user) return <Navigate to="/login" />;
 
-  if (role !== "Hr") {
+  if (role !== "hr") {
     return <Navigate to="/" />;
   }
 

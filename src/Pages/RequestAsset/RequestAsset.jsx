@@ -4,11 +4,13 @@ import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { RxCross2 } from "react-icons/rx";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useaxiosPublic from "../../hooks/useAxiosPublic";
 
 const RequestAsset = () => {
   const { user } = useAuth();
-  const axiosSecure = useAxiosSecure();
+  console.log(user);
+
+  const axiosURL = useaxiosPublic();
   const { register, handleSubmit, reset } = useForm();
   const modalRef = useRef();
   const [request, setRequest] = useState({});
@@ -17,7 +19,7 @@ const RequestAsset = () => {
   const { data: assets = [], isLoading } = useQuery({
     queryKey: ["assets"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/assets");
+      const res = await axiosURL.get("/assets");
       return res.data;
     },
   });
@@ -35,6 +37,7 @@ const RequestAsset = () => {
       assetType: request.productType,
       requesterName: user?.displayName,
       requesterEmail: user?.email,
+      employeePhoto: user?.photoURL,
       hrEmail: request.hrEmail,
       companyName: request.companyName,
       requestStatus: "pending",
@@ -45,7 +48,7 @@ const RequestAsset = () => {
     };
 
     // Submit request-----------
-    axiosSecure
+    axiosURL
       .post("/asset-requests", requestAssetData)
       .then((res) => {
         if (res.data.insertedId) {
