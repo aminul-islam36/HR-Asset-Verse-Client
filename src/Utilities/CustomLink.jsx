@@ -10,7 +10,7 @@ const CustomLink = ({ link }) => {
      ${isActive ? "text-accent" : "text-neutral"}`
       }
     >
-      {link.name}
+      {link.label}
     </NavLink>
   );
 };

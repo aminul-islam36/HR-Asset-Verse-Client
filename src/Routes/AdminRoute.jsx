@@ -10,7 +10,7 @@ const AdminRoute = ({ children }) => {
   if (isLoading || roleLoading) return <Loading />;
   if (!user) return <Navigate to="/login" />;
 
-  if (role !== "hr") {
+  if (role !== "hr" && role !== "Hr") {
     return <Navigate to="/" />;
   }
 

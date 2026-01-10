@@ -1,4 +1,4 @@
-import heroImg from "../assets/business.webp";
+import heroImg from "/business.webp";
 import Container from "./Container";
 const Hero = () => {
   return (

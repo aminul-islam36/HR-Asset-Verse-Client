@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate, NavLink } from "react-router";
+import { createBrowserRouter, Link } from "react-router";
 import Home from "../Pages/HomePage/Home";
 import AllRequests from "../Pages/AllRequests/AllRequests";
 import RequestAsset from "../Pages/RequestAsset/RequestAsset";
@@ -7,7 +7,6 @@ import AddAsset from "../Pages/AddAsset/AddAsset";
 import AllAsset from "../Pages/AssetListPage/AllAsset";
 import MyTeam from "../Pages/MyTeam/MyTeam";
 import EmployeeProfile from "../Pages/EmployeeProfile/EmployeeProfile";
-import HrProfile from "../Pages/HrProfile/HrProfile";
 import EmployeeRoute from "./EmployeeRoute";
 import Register from "../Pages/RegisterPage/Register";
 import MyAssets from "../Pages/MyAssets/MyAssets";
@@ -19,7 +18,11 @@ import UpgradePackage from "../Pages/UpgradePackage/UpgradePackage";
 import Testimonial from "../Pages/Testimonial/Testimonial";
 import JoinHr from "../Pages/join-hr/JoinHr";
 import Employees from "../Pages/Employees/Employees";
-import HrDashboard from "../Pages/HrDashboard/HrDashboard";
+import Dashboard from "../Pages/Dashboard";
+import DashboardAssetRequests from "../Pages/DashboardAssetRequests";
+import DashboardApprovals from "../Pages/DashboardApprovals";
+import DashboardProfile from "../Pages/DashboardProfile";
+import DashboardLayout from "../Layouts/DashboardLayout";
 
 const router = createBrowserRouter([
   {
@@ -64,18 +67,10 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/upgrade-Package",
+        path: "/packages",
         element: (
           <AdminRoute>
             <UpgradePackage />
-          </AdminRoute>
-        ),
-      },
-      {
-        path: "/profile",
-        element: (
-          <AdminRoute>
-            <HrProfile />
           </AdminRoute>
         ),
       },
@@ -131,13 +126,37 @@ const router = createBrowserRouter([
       },
     ],
   },
+  // Dashboard Routes - Separate layout
+  {
+    path: "/dashboard",
+    element: (
+      <AdminRoute>
+        <DashboardLayout />
+      </AdminRoute>
+    ),
+    children: [
+      {
+        index: true,
+        element: <Dashboard />,
+      },
+      {
+        path: "asset-requests",
+        element: <DashboardAssetRequests />,
+      },
+      {
+        path: "approvals",
+        element: <DashboardApprovals />,
+      },
+      {
+        path: "profile",
+        element: <DashboardProfile />,
+      },
+    ],
+  },
+
   {
     path: "*",
     element: <ErrorPage />,
-  },
-  {
-    path: "hrDashboard",
-    element: <HrDashboard />,
   },
 ]);
 

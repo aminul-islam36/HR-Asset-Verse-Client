@@ -12,37 +12,46 @@
   font-family: "Arimo";
   src: url("/public/Arimo.ttf") format("woff2");
 }
+
 .arimo {
   font-family: "Arimo";
 }
-/* LIGHT THEME */
+
+/* LIGHT THEME - Professional Corporate Colors */
 @plugin "daisyui/theme" {
   name: "light";
-  --color-primary: #1e40af; /* buttons, active links */
-  --color-secondary: #475569; /* secondary text */
-  --color-accent: #16a34a; /* assign / approve */
-  --color-neutral: #334155; /* headings */
+  --color-primary: #2563eb; /* Professional blue for buttons, active links */
+  --color-secondary: #64748b; /* Neutral gray for secondary text */
+  --color-accent: #059669; /* Professional green for success/approve */
+  --color-neutral: #1e293b; /* Dark slate for headings */
+  --color-info: #0ea5e9; /* Sky blue for info */
+  --color-success: #10b981; /* Emerald for success states */
+  --color-warning: #f59e0b; /* Amber for warnings */
+  --color-error: #dc2626; /* Red for errors */
 
-  --color-base-100: #ffffff; /* page */
-  --color-base-200: #f1f5f9; /* section bg */
-  --color-base-300: #e2e8f0; /* cards */
-  --color-base-content: #0f172a;
+  --color-base-100: #ffffff; /* Pure white for page background */
+  --color-base-200: #f8fafc; /* Very light gray for section backgrounds */
+  --color-base-300: #e2e8f0; /* Light gray for cards and borders */
+  --color-base-content: #0f172a; /* Very dark for text content */
 }
 
-/*  DARK THEME */
-
+/* DARK THEME - Professional Dark Mode */
 @plugin "daisyui/theme" {
   name: "dark";
   default: true;
-  --color-primary: #60a5fa; /* CTA, active */
-  --color-secondary: #94a3b8; /* muted text */
-  --color-accent: #22c55e; /* success */
-  --color-neutral: #cbd5e1; /* titles */
+  --color-primary: #3b82f6; /* Bright blue for CTA, active states */
+  --color-secondary: #94a3b8; /* Light gray for muted text */
+  --color-accent: #22c55e; /* Bright green for success */
+  --color-neutral: #e2e8f0; /* Light gray for titles */
+  --color-info: #38bdf8; /* Sky blue for info */
+  --color-success: #22c55e; /* Green for success states */
+  --color-warning: #fbbf24; /* Yellow for warnings */
+  --color-error: #ef4444; /* Red for errors */
 
-  --color-base-100: #020617; /* page bg */
-  --color-base-200: #020617;
-  --color-base-300: #0f172a; /* navbar, cards */
-  --color-base-content: #e5e7eb;
+  --color-base-100: #0f172a; /* Very dark blue for page background */
+  --color-base-200: #1e293b; /* Dark slate for section backgrounds */
+  --color-base-300: #334155; /* Medium slate for cards and navbar */
+  --color-base-content: #f1f5f9; /* Very light gray for text content */
 }
 
 /* Global styles */
@@ -50,6 +59,7 @@
   font-family: "Roboto", sans-serif;
   scroll-behavior: smooth;
 }
+
 /* Remove number input spinner */
 .no-spinner::-webkit-inner-spin-button,
 .no-spinner::-webkit-outer-spin-button {
@@ -57,7 +67,32 @@
   margin: 0;
 }
 
-/* Custom button */
+/* Custom button with professional styling */
 .custom-button {
-  @apply px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-blue-700 btn;
+  @apply px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors duration-200 shadow-sm hover:shadow-md btn;
+}
+
+/* Professional gradient backgrounds */
+.gradient-primary {
+  background: linear-gradient(
+    135deg,
+    theme("colors.primary") 0%,
+    theme("colors.info") 100%
+  );
+}
+
+.gradient-success {
+  background: linear-gradient(
+    135deg,
+    theme("colors.success") 0%,
+    theme("colors.accent") 100%
+  );
+}
+
+.gradient-warning {
+  background: linear-gradient(
+    135deg,
+    theme("colors.warning") 0%,
+    theme("colors.error") 100%
+  );
 }
